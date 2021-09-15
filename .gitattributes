@@ -1,2 +1,3 @@
 # Auto detect text files and perform LF normalization
+# Basically, windows and unix use different characters for new line so this makes it the same
 * text=auto

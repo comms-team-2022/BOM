@@ -1,2 +1,2 @@
 # BOM
- Battle Of the Minds 2022
+This is a project for my school
