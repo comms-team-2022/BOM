@@ -1,16 +1,20 @@
 import { createServer } from "http";
 import { Server } from "socket.io";
+import config from "config";
+
+const port = config.get<number>("port");
+const host = config.get<string>("host");
+const corsOrigin = config.get<string>("corsOrigin");
 
 const http = createServer();
-// ? Maybe the origin should be changed to prevent unwanted addresses connecting
-const io = new Server(http, { cors: { origin: "*" } });
+const io = new Server(http, { cors: { origin: corsOrigin } });
 
 io.on("connection", socket => {
-  console.log("client connected");
+  console.log(socket.id + " connected");
 
   socket.on("message", message => {
     console.log(`${socket.id} said ${message}`);
   });
 });
 
-http.listen(8080, () => console.log("listening on http://localhost:8080"));
+http.listen(port, host, () => console.log(`listening on http://${host}:${port}`));

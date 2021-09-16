@@ -6,9 +6,11 @@
     "build": "tsc -p ."
   },
   "dependencies": {
+    "config": "^3.3.6",
     "socket.io": "^4.2.0"
   },
   "devDependencies": {
+    "@types/config": "^0.0.39",
     "@types/socket.io": "^3.0.2",
     "nodemon": "^2.0.12",
     "ts-node": "^10.2.1",
