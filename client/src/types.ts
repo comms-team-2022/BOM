@@ -1,6 +1,3 @@
-// After typing all of this I've realised it might have not been necessary
-// because typescript already infers the type of json files
-
 interface questionBase {
   question: string;
   isMultiChoice: boolean;
@@ -18,7 +15,7 @@ interface openQuestion extends questionBase {
 
 type question = multiQuestion | openQuestion;
 
-interface grade {
+export interface questionGroup {
   grade: number;
   questions: question[];
 }
