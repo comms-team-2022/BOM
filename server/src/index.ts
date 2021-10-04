@@ -10,13 +10,13 @@ const corsOrigin = config.get<string>("corsOrigin");
 const http = createServer();
 const io = new Server(http, { cors: { origin: corsOrigin } });
 
-//#region State
+//#region State Initialisation
 
 // Default grade
 let questionGroupIndex = 0;
 // Default question in grade
 let questionIndex = 0;
-// House information
+// House information; Keys are ids
 const teams: { [key: string]: { house: string; score: number } } = {};
 
 //#endregion
@@ -33,6 +33,7 @@ io.on("connection", socket => {
   socket.on("answer", answerIndex => {
     const currentQuestion = questions[questionGroupIndex].questions[questionIndex];
     console.log(`${socket.id} answered ${answerIndex}`);
+    // Maybe move this logic to where admin controls
     if (currentQuestion.isMultiChoice) {
       if (answerIndex === currentQuestion.correctIndex) {
         teams[socket.id].score += 1;
@@ -42,6 +43,14 @@ io.on("connection", socket => {
       } else {
         console.log(`${socket.id} was incorrect`);
       }
+    }
+  });
+
+  socket.on("admin_login", password => {
+    // TODO: Change password to be more secure
+    if (password === "joe") {
+      console.log(`${socket.id} logged in as admin`);
+      socket.emit("admin_teams", teams);
     }
   });
 });

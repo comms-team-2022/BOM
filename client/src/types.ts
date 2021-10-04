@@ -19,3 +19,5 @@ export interface questionGroup {
   grade: number;
   questions: question[];
 }
+
+export type adminTeams = { [key: string]: { house: string; score: number } };
