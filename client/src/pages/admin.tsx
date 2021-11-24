@@ -3,7 +3,7 @@ import { Input } from "@chakra-ui/input";
 import { Box, Heading } from "@chakra-ui/layout";
 import { useEffect, useState } from "react";
 import { useSockets } from "../socket.context";
-import { adminTeams } from "../types";
+import { adminTeams } from "../../../types";
 
 const Admin = () => {
   const { socket } = useSockets();

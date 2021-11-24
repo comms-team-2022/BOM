@@ -5,7 +5,7 @@ import { createContext, useContext, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { DefaultEventsMap } from "socket.io-client/build/typed-events";
 import { SOCKET_URL } from "../config/default";
-import { questionGroup } from "./types";
+import { questionGroup } from "../../types";
 
 interface SocketContext {
   // TODO: Replace DefaultEventsMap with actual events

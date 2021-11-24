@@ -1,6 +1,7 @@
 import { createServer } from "http";
 import { Server } from "socket.io";
 import config from "config";
+import { adminTeams } from "../../types";
 import questions from "./questions.json";
 
 const port = config.get<number>("port");
@@ -17,7 +18,7 @@ let questionGroupIndex = 0;
 // Default question in grade
 let questionIndex = 0;
 // House information; Keys are ids
-const teams: { [key: string]: { house: string; score: number } } = {};
+const teams: adminTeams = {};
 
 //#endregion
 
@@ -27,8 +28,10 @@ io.on("connection", socket => {
   // Send over all of the questions
   socket.emit("questions", questions);
 
-  // TODO: Make the team selectable and not hardcoded
-  teams[socket.id] = { house: "Graham", score: 0 };
+  // TODO: prevent multiple users using the same house
+  socket.on("house_login", house => {
+    teams[socket.id] = { house, score: 0 };
+  });
 
   socket.on("answer", answerIndex => {
     const currentQuestion = questions[questionGroupIndex].questions[questionIndex];
