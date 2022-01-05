@@ -1,23 +1,23 @@
-interface questionBase {
+interface QuestionBase {
     question: string;
     isMultiChoice: boolean;
 }
 
-interface multiQuestion extends questionBase {
+interface MultiQuestion extends QuestionBase {
     isMultiChoice: true;
     answers: string[];
     correctIndex: number;
 }
 
-interface openQuestion extends questionBase {
+interface OpenQuestion extends QuestionBase {
     isMultiChoice: false;
 }
 
-type question = multiQuestion | openQuestion;
+type Question = MultiQuestion | OpenQuestion;
 
-export interface questionGroup {
+export interface QuestionGroup {
     grade: number;
-    questions: question[];
+    questions: Question[];
 }
 
-export type adminTeams = { [key: string]: { house: string; score: number } };
+export type Teams = { [key: string]: { house: string; score: number; chosenAnswer?: number } };

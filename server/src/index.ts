@@ -1,7 +1,7 @@
 import { createServer } from "http";
 import { Server } from "socket.io";
 import config from "config";
-import { adminTeams } from "../../types";
+import { Teams } from "../../types";
 import questions from "./questions.json";
 
 const port = config.get<number>("port");
@@ -18,7 +18,7 @@ let questionGroupIndex = 0;
 // Default question in grade
 let questionIndex = 0;
 // House information; Keys are ids
-const teams: adminTeams = {};
+const teams: Teams = {};
 
 //#endregion
 
@@ -27,36 +27,54 @@ io.on("connection", socket => {
     console.log(socket.id + " connected");
     // Send over all of the questions
     socket.emit("questions", questions);
+    // Send over team information
+    socket.emit("teams", teams);
+    socket.emit("question_index", questionIndex);
+    socket.emit("question_group_index", questionGroupIndex);
 
     // TODO: prevent multiple users using the same house
     socket.on("house_login", house => {
         teams[socket.id] = { house, score: 0 };
+        // emit to all sockets
+        io.sockets.emit("teams", teams);
     });
 
     socket.on("answer", answerIndex => {
-        const currentQuestion = questions[questionGroupIndex].questions[questionIndex];
+        teams[socket.id].chosenAnswer = answerIndex;
+        io.sockets.emit("teams", teams);
         console.log(`${socket.id} answered ${answerIndex}`);
-        // Maybe move this logic to where admin controls
-        if (currentQuestion.isMultiChoice) {
-            if (answerIndex === currentQuestion.correctIndex) {
-                teams[socket.id].score += 1;
-                console.log(
-                    `${teams[socket.id].house} was correct and their score is now ${
-                        teams[socket.id].score
-                    }`
-                );
-            } else {
-                console.log(`${socket.id} was incorrect`);
-            }
-        }
     });
 
     socket.on("admin_login", password => {
         // TODO: Change password to be more secure
-        if (password === "joe") {
-            console.log(`${socket.id} logged in as admin`);
-            socket.emit("admin_teams", teams);
-        }
+        if (password !== "joe") return;
+
+        console.log(`${socket.id} logged in as admin`);
+        socket.emit("admin_login_success");
+
+        socket.on("admin_next_question", () => {
+            const currentQuestion = questions[questionGroupIndex].questions[questionIndex];
+            for (const id in teams) {
+                if (currentQuestion.isMultiChoice) {
+                    if (teams[id].chosenAnswer === currentQuestion.correctIndex) {
+                        teams[id].score += 1;
+                        console.log(
+                            `${teams[id].house} was correct and their score is now ${teams[id].score}`
+                        );
+                    } else {
+                        console.log(`${id} was incorrect`);
+                    }
+                }
+            }
+            questionIndex++;
+            if (questionIndex === questions[questionGroupIndex].questions.length) {
+                questionIndex = 0;
+                questionGroupIndex++;
+            }
+            io.sockets.emit("teams", teams);
+            io.sockets.emit("question_index", questionIndex);
+            io.sockets.emit("question_group_index", questionGroupIndex);
+        });
     });
 });
 
