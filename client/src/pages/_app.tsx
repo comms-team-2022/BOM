@@ -5,13 +5,13 @@ import theme from "../theme";
 import { AppProps } from "next/app";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <ChakraProvider resetCSS theme={theme}>
-      <SocketsProvider>
-        <Component {...pageProps} />
-      </SocketsProvider>
-    </ChakraProvider>
-  );
+    return (
+        <ChakraProvider resetCSS theme={theme}>
+            <SocketsProvider>
+                <Component {...pageProps} />
+            </SocketsProvider>
+        </ChakraProvider>
+    );
 }
 
 export default MyApp;

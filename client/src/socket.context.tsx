@@ -8,38 +8,38 @@ import { SOCKET_URL } from "../config/default";
 import { questionGroup } from "../../types";
 
 interface SocketContext {
-  // TODO: Replace DefaultEventsMap with actual events
-  socket: Socket<DefaultEventsMap, DefaultEventsMap>;
-  questions: questionGroup[];
-  questionGroupIndex: number;
-  questionIndex: number;
+    // TODO: Replace DefaultEventsMap with actual events
+    socket: Socket<DefaultEventsMap, DefaultEventsMap>;
+    questions: questionGroup[];
+    questionGroupIndex: number;
+    questionIndex: number;
 }
 
 const socket = io(SOCKET_URL);
 
 const SocketContext = createContext<SocketContext>({
-  socket,
-  questions: [],
-  questionGroupIndex: 0,
-  questionIndex: 0,
+    socket,
+    questions: [],
+    questionGroupIndex: 0,
+    questionIndex: 0,
 });
 
 const SocketsProvider: React.FC = props => {
-  const [questions, setQuestions] = useState<questionGroup[]>([]);
-  // Current index in questions array
-  const [questionGroupIndex, setQuestionsIndex] = useState(0);
-  // Current index of questions within the current questionGroup
-  const [questionIndex, setQuestionIndex] = useState(0);
+    const [questions, setQuestions] = useState<questionGroup[]>([]);
+    // Current index in questions array
+    const [questionGroupIndex, setQuestionsIndex] = useState(0);
+    // Current index of questions within the current questionGroup
+    const [questionIndex, setQuestionIndex] = useState(0);
 
-  // Should only be called once ever
-  socket.on("questions", value => setQuestions(value));
+    // Should only be called once ever
+    socket.on("questions", value => setQuestions(value));
 
-  return (
-    <SocketContext.Provider
-      value={{ socket, questions, questionGroupIndex, questionIndex }}
-      {...props}
-    />
-  );
+    return (
+        <SocketContext.Provider
+            value={{ socket, questions, questionGroupIndex, questionIndex }}
+            {...props}
+        />
+    );
 };
 
 export const useSockets = () => useContext(SocketContext);
