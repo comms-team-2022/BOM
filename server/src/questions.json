@@ -9,8 +9,15 @@
                 "correctIndex": 0
             },
             {
+                "question": "Who's Joe?",
+                "isMultiChoice": true,
+                "answers": ["Biden", "Mama", "Swanson", "Stalin"],
+                "correctIndex": 1
+            },
+            {
                 "question": "Why?",
-                "isMultiChoice": false
+                "isMultiChoice": false,
+                "answer": "idk"
             }
         ]
     },
@@ -25,7 +32,8 @@
             },
             {
                 "question": "Why?",
-                "isMultiChoice": false
+                "isMultiChoice": false,
+                "answer": "idk"
             }
         ]
     },
@@ -40,7 +48,8 @@
             },
             {
                 "question": "Why?",
-                "isMultiChoice": false
+                "isMultiChoice": false,
+                "answer": "idk"
             }
         ]
     },
@@ -55,7 +64,8 @@
             },
             {
                 "question": "Why?",
-                "isMultiChoice": false
+                "isMultiChoice": false,
+                "answer": "idk"
             }
         ]
     },
@@ -70,7 +80,8 @@
             },
             {
                 "question": "Why?",
-                "isMultiChoice": false
+                "isMultiChoice": false,
+                "answer": "idk"
             }
         ]
     },
@@ -85,7 +96,8 @@
             },
             {
                 "question": "Why?",
-                "isMultiChoice": false
+                "isMultiChoice": false,
+                "answer": "idk"
             }
         ]
     }

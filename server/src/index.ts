@@ -52,28 +52,41 @@ io.on("connection", socket => {
         console.log(`${socket.id} logged in as admin`);
         socket.emit("admin_login_success");
 
-        socket.on("admin_next_question", () => {
+        socket.on("admin_finish_question", () => {
             const currentQuestion = questions[questionGroupIndex].questions[questionIndex];
             for (const id in teams) {
                 if (currentQuestion.isMultiChoice) {
                     if (teams[id].chosenAnswer === currentQuestion.correctIndex) {
                         teams[id].score += 1;
+                        teams[id].isCorrect = true;
                         console.log(
                             `${teams[id].house} was correct and their score is now ${teams[id].score}`
                         );
                     } else {
-                        console.log(`${id} was incorrect`);
+                        teams[id].isCorrect = false;
+                        console.log(`${teams[id].house} was incorrect`);
                     }
                 }
             }
+
+            io.sockets.emit("teams", teams);
+        });
+
+        socket.on("admin_next_question", () => {
             questionIndex++;
             if (questionIndex === questions[questionGroupIndex].questions.length) {
                 questionIndex = 0;
                 questionGroupIndex++;
             }
-            io.sockets.emit("teams", teams);
+
+            for (const id in teams) {
+                teams[id].isCorrect = undefined;
+                teams[id].chosenAnswer = undefined;
+            }
+
             io.sockets.emit("question_index", questionIndex);
             io.sockets.emit("question_group_index", questionGroupIndex);
+            io.sockets.emit("teams", teams);
         });
     });
 });

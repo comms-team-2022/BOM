@@ -11,6 +11,7 @@ interface MultiQuestion extends QuestionBase {
 
 interface OpenQuestion extends QuestionBase {
     isMultiChoice: false;
+    answer: string;
 }
 
 type Question = MultiQuestion | OpenQuestion;
@@ -20,4 +21,6 @@ export interface QuestionGroup {
     questions: Question[];
 }
 
-export type Teams = { [key: string]: { house: string; score: number; chosenAnswer?: number } };
+export type Teams = {
+    [key: string]: { house: string; score: number; chosenAnswer?: number; isCorrect?: boolean };
+};

@@ -19,6 +19,7 @@ const Admin = () => {
 
     const questionGroup = questions[questionGroupIndex];
     const currentQuestion = questionGroup.questions[questionIndex];
+    const allAnswered = Object.values(teams).every(team => team.chosenAnswer !== undefined);
 
     if (loginSuccess)
         return (
@@ -36,17 +37,30 @@ const Admin = () => {
                           </Button>
                       ))
                     : "non-multichoice not implemented"}
-                <Button
-                    /* TODO: Make green when all teams have answered*/ colorScheme="red"
-                    onClick={() => socket.emit("admin_next_question")}
-                >
-                    next question
-                </Button>
+                <br />
+                {Object.values(teams)[0]?.isCorrect === undefined ? (
+                    <Button
+                        colorScheme={allAnswered ? "green" : "red"}
+                        onClick={() => socket.emit("admin_finish_question")}
+                    >
+                        finish question
+                    </Button>
+                ) : (
+                    <Button colorScheme="purple" onClick={() => socket.emit("admin_next_question")}>
+                        next question
+                    </Button>
+                )}
+
                 {Object.keys(teams).map(id => {
                     const chosenAnswer = teams[id].chosenAnswer;
+                    let colour;
+                    if (currentQuestion.isMultiChoice) {
+                        if (chosenAnswer === currentQuestion.correctIndex) colour = "green.700";
+                        else if (chosenAnswer !== undefined) colour = "red.700";
+                    }
 
                     return (
-                        <Box borderWidth="thin" my="3" p="3" key={id}>
+                        <Box borderWidth="thin" my="3" p="3" key={id} bgColor={colour}>
                             <Heading>{teams[id].house}</Heading>
                             <p>Id: {id}</p>
                             <p>Score: {teams[id].score}</p>

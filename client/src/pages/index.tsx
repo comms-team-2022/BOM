@@ -1,3 +1,4 @@
+import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import { Button, Spinner, Heading } from "@chakra-ui/react";
 import { useSockets } from "../socket.context";
 
@@ -7,9 +8,10 @@ const Index = () => {
 
     const questionGroup = questions[questionGroupIndex];
     const currentQuestion = questionGroup.questions[questionIndex];
+    const team = teams[socket.id];
 
     // If haven't chosen house
-    if (!teams[socket.id])
+    if (!team)
         return (
             <>
                 <Heading>What Team Are You?</Heading>
@@ -28,6 +30,8 @@ const Index = () => {
             </>
         );
 
+    if (team.isCorrect !== undefined) return team.isCorrect ? <CheckIcon /> : <CloseIcon />;
+
     return (
         <>
             <p>Grade {questionGroup.grade}</p>
@@ -37,7 +41,7 @@ const Index = () => {
                       <Button
                           key={i}
                           onClick={() => socket.emit("answer", i)}
-                          colorScheme={teams[socket.id].chosenAnswer === i ? "yellow" : undefined}
+                          colorScheme={team.chosenAnswer === i ? "yellow" : undefined}
                       >
                           {answer}
                       </Button>
