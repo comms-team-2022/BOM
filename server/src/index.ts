@@ -1,7 +1,7 @@
 import { createServer } from "http";
 import { Server } from "socket.io";
 import config from "config";
-import { Teams } from "../../types";
+import { TeamCorrect, Teams } from "../../types";
 import questions from "./questions.json";
 
 const port = config.get<number>("port");
@@ -39,10 +39,10 @@ io.on("connection", socket => {
         io.sockets.emit("teams", teams);
     });
 
-    socket.on("answer", answerIndex => {
-        teams[socket.id].chosenAnswer = answerIndex;
+    socket.on("answer", answer => {
+        teams[socket.id].chosenAnswer = answer;
         io.sockets.emit("teams", teams);
-        console.log(`${socket.id} answered ${answerIndex}`);
+        console.log(`${socket.id} answered ${answer}`);
     });
 
     socket.on("admin_login", password => {
@@ -52,20 +52,26 @@ io.on("connection", socket => {
         console.log(`${socket.id} logged in as admin`);
         socket.emit("admin_login_success");
 
-        socket.on("admin_finish_question", () => {
+        socket.on("admin_finish_question", (teamCorrect: TeamCorrect) => {
             const currentQuestion = questions[questionGroupIndex].questions[questionIndex];
             for (const id in teams) {
+                let correct: boolean;
+
                 if (currentQuestion.isMultiChoice) {
-                    if (teams[id].chosenAnswer === currentQuestion.correctIndex) {
-                        teams[id].score += 1;
-                        teams[id].isCorrect = true;
-                        console.log(
-                            `${teams[id].house} was correct and their score is now ${teams[id].score}`
-                        );
-                    } else {
-                        teams[id].isCorrect = false;
-                        console.log(`${teams[id].house} was incorrect`);
-                    }
+                    correct = teams[id].chosenAnswer === currentQuestion.correctIndex;
+                } else {
+                    correct = teamCorrect[id];
+                }
+
+                if (correct) {
+                    teams[id].score += 1;
+                    teams[id].isCorrect = true;
+                    console.log(
+                        `${teams[id].house} was correct and their score is now ${teams[id].score}`
+                    );
+                } else {
+                    teams[id].isCorrect = false;
+                    console.log(`${teams[id].house} was incorrect`);
                 }
             }
 

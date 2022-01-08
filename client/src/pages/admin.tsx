@@ -1,14 +1,15 @@
 import { Button } from "@chakra-ui/button";
-import { Input } from "@chakra-ui/input";
 import { Box, Heading } from "@chakra-ui/layout";
 import { Spinner } from "@chakra-ui/spinner";
 import { useEffect, useState } from "react";
+import { TeamCorrect } from "../../../types";
+import { TextInput } from "../components/TextInput";
 import { useSockets } from "../socket.context";
 
 const Admin = () => {
     const { socket, teams, questionGroupIndex, questionIndex, questions } = useSockets();
-    const [password, setPassword] = useState("");
     const [loginSuccess, setLoginSuccess] = useState(false);
+    const [teamCorrect, setTeamCorrect] = useState<TeamCorrect>({});
 
     // Only called on first load
     useEffect(() => {
@@ -36,12 +37,15 @@ const Admin = () => {
                               {answer}
                           </Button>
                       ))
-                    : "non-multichoice not implemented"}
+                    : currentQuestion.answer}
                 <br />
                 {Object.values(teams)[0]?.isCorrect === undefined ? (
                     <Button
                         colorScheme={allAnswered ? "green" : "red"}
-                        onClick={() => socket.emit("admin_finish_question")}
+                        onClick={() => {
+                            socket.emit("admin_finish_question", teamCorrect);
+                            setTeamCorrect({});
+                        }}
                     >
                         finish question
                     </Button>
@@ -52,25 +56,50 @@ const Admin = () => {
                 )}
 
                 {Object.keys(teams).map(id => {
-                    const chosenAnswer = teams[id].chosenAnswer;
+                    const team = teams[id];
+                    const chosenAnswer = team.chosenAnswer;
+
                     let colour;
+                    let answer = "None";
                     if (currentQuestion.isMultiChoice) {
                         if (chosenAnswer === currentQuestion.correctIndex) colour = "green.700";
                         else if (chosenAnswer !== undefined) colour = "red.700";
+
+                        if (chosenAnswer !== undefined)
+                            answer = currentQuestion.answers[chosenAnswer as number];
+                    } else {
+                        if (teamCorrect[id]) colour = "green.700";
+                        else if (teamCorrect[id] !== undefined) colour = "red.700";
+
+                        if (chosenAnswer !== undefined) answer = team.chosenAnswer as string;
                     }
 
                     return (
                         <Box borderWidth="thin" my="3" p="3" key={id} bgColor={colour}>
-                            <Heading>{teams[id].house}</Heading>
+                            <Heading>{team.house}</Heading>
                             <p>Id: {id}</p>
-                            <p>Score: {teams[id].score}</p>
-                            <p>
-                                Answer:{" "}
-                                {chosenAnswer !== undefined
-                                    ? currentQuestion.isMultiChoice &&
-                                      currentQuestion.answers[chosenAnswer]
-                                    : "None"}
-                            </p>
+                            <p>Score: {team.score}</p>
+                            <p>Answer: {answer}</p>
+                            {!currentQuestion.isMultiChoice && (
+                                <>
+                                    <Button
+                                        colorScheme="green"
+                                        onClick={() =>
+                                            setTeamCorrect({ ...teamCorrect, [id]: true })
+                                        }
+                                    >
+                                        Correct
+                                    </Button>
+                                    <Button
+                                        colorScheme="red"
+                                        onClick={() =>
+                                            setTeamCorrect({ ...teamCorrect, [id]: false })
+                                        }
+                                    >
+                                        Incorrect
+                                    </Button>
+                                </>
+                            )}
                         </Box>
                     );
                 })}
@@ -78,22 +107,11 @@ const Admin = () => {
         );
 
     return (
-        <>
-            <Input
-                placeholder="password"
-                type="password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-            />
-            <Button
-                onClick={() => {
-                    socket.emit("admin_login", password);
-                    setPassword("");
-                }}
-            >
-                Submit
-            </Button>
-        </>
+        <TextInput
+            submitFunction={password => socket.emit("admin_login", password)}
+            placeholder="password"
+            type="password"
+        />
     );
 };
 

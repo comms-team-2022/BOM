@@ -1,9 +1,12 @@
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
-import { Button, Spinner, Heading } from "@chakra-ui/react";
+import { Button, Spinner, Heading, Text } from "@chakra-ui/react";
+import { useState } from "react";
+import { TextInput } from "../components/TextInput";
 import { useSockets } from "../socket.context";
 
 const Index = () => {
     const { socket, questionGroupIndex, questionIndex, questions, teams } = useSockets();
+    const [submittedAnswer, setSubmittedAnswer] = useState("");
     if (questions.length === 0) return <Spinner />;
 
     const questionGroup = questions[questionGroupIndex];
@@ -34,19 +37,37 @@ const Index = () => {
 
     return (
         <>
+            <p>{team.house}</p>
             <p>Grade {questionGroup.grade}</p>
             <Heading>{currentQuestion.question}</Heading>
-            {currentQuestion.isMultiChoice
-                ? currentQuestion.answers.map((answer, i) => (
-                      <Button
-                          key={i}
-                          onClick={() => socket.emit("answer", i)}
-                          colorScheme={team.chosenAnswer === i ? "yellow" : undefined}
-                      >
-                          {answer}
-                      </Button>
-                  ))
-                : "non-multichoice not implemented"}
+            {currentQuestion.isMultiChoice ? (
+                currentQuestion.answers.map((answer, i) => (
+                    <Button
+                        key={i}
+                        onClick={() => socket.emit("answer", i)}
+                        colorScheme={team.chosenAnswer === i ? "yellow" : undefined}
+                    >
+                        {answer}
+                    </Button>
+                ))
+            ) : (
+                <>
+                    <TextInput
+                        submitFunction={answer => {
+                            socket.emit("answer", answer);
+                            setSubmittedAnswer(answer);
+                        }}
+                    />
+                    {submittedAnswer && (
+                        <Text display="flex">
+                            Submitted answer:{" "}
+                            <Text ml="1" color="yellow.300">
+                                {submittedAnswer}
+                            </Text>
+                        </Text>
+                    )}
+                </>
+            )}
         </>
     );
 };

@@ -22,5 +22,15 @@ export interface QuestionGroup {
 }
 
 export type Teams = {
-    [key: string]: { house: string; score: number; chosenAnswer?: number; isCorrect?: boolean };
+    [key: string]: {
+        house: string;
+        score: number;
+        chosenAnswer?: number | string;
+        isCorrect?: boolean;
+    };
+};
+
+// For non-multichoice questions
+export type TeamCorrect = {
+    [key: keyof Teams]: boolean;
 };
