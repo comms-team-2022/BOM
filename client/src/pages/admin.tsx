@@ -3,11 +3,12 @@ import { Box, Heading } from "@chakra-ui/layout";
 import { Spinner } from "@chakra-ui/spinner";
 import { useEffect, useState } from "react";
 import { TeamCorrect } from "../../../types";
+import { Chart } from "../components/Chart";
 import { TextInput } from "../components/TextInput";
 import { useSockets } from "../socket.context";
 
 const Admin = () => {
-    const { socket, teams, questionGroupIndex, questionIndex, questions } = useSockets();
+    const { socket, teams, questionGroupIndex, questionIndex, questions, showChart } = useSockets();
     const [loginSuccess, setLoginSuccess] = useState(false);
     const [teamCorrect, setTeamCorrect] = useState<TeamCorrect>({});
 
@@ -26,6 +27,12 @@ const Admin = () => {
         return (
             <>
                 <Heading mb="5">Admin Page</Heading>
+
+                <Button onClick={() => socket.emit("admin_toggle_chart")}>
+                    {showChart ? "Hide" : "Show"} Chart on Projector
+                </Button>
+                {showChart && <Chart teams={teams} />}
+
                 <p>Grade {questionGroup.grade}</p>
                 <Heading>{currentQuestion.question}</Heading>
                 {currentQuestion.isMultiChoice
@@ -38,6 +45,7 @@ const Admin = () => {
                           </Button>
                       ))
                     : currentQuestion.answer}
+                <br />
                 <br />
                 {Object.values(teams)[0]?.isCorrect === undefined ? (
                     <Button

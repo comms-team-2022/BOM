@@ -19,6 +19,8 @@ let questionGroupIndex = 0;
 let questionIndex = 0;
 // House information; Keys are ids
 const teams: Teams = {};
+// Don't show chart by default
+let showChart = false;
 
 //#endregion
 
@@ -27,10 +29,12 @@ io.on("connection", socket => {
     console.log(socket.id + " connected");
     // Send over all of the questions
     socket.emit("questions", questions);
-    // Send over team information
-    socket.emit("teams", teams);
     socket.emit("question_index", questionIndex);
     socket.emit("question_group_index", questionGroupIndex);
+    // Send over team information
+    socket.emit("teams", teams);
+    // Whether to show chart
+    socket.emit("show_chart", showChart);
 
     // TODO: prevent multiple users using the same house
     socket.on("house_login", house => {
@@ -44,6 +48,8 @@ io.on("connection", socket => {
         io.sockets.emit("teams", teams);
         console.log(`${socket.id} answered ${answer}`);
     });
+
+    //#region Admin Stuff
 
     socket.on("admin_login", password => {
         // TODO: Change password to be more secure
@@ -94,7 +100,15 @@ io.on("connection", socket => {
             io.sockets.emit("question_group_index", questionGroupIndex);
             io.sockets.emit("teams", teams);
         });
+
+        socket.on("admin_toggle_chart", () => {
+            showChart = !showChart;
+            console.log(showChart ? "Chart Shown" : "Chart Hidden");
+            io.sockets.emit("show_chart", showChart);
+        });
     });
+
+    //#endregion
 });
 
 http.listen(port, host, () => console.log(`listening on http://${host}:${port}`));

@@ -1,12 +1,10 @@
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import { Button, Spinner, Heading, Text } from "@chakra-ui/react";
-import { useState } from "react";
 import { TextInput } from "../components/TextInput";
 import { useSockets } from "../socket.context";
 
 const Index = () => {
     const { socket, questionGroupIndex, questionIndex, questions, teams } = useSockets();
-    const [submittedAnswer, setSubmittedAnswer] = useState("");
     if (questions.length === 0) return <Spinner />;
 
     const questionGroup = questions[questionGroupIndex];
@@ -33,7 +31,9 @@ const Index = () => {
             </>
         );
 
-    if (team.isCorrect !== undefined) return team.isCorrect ? <CheckIcon /> : <CloseIcon />;
+    if (team.isCorrect !== undefined) {
+        return team.isCorrect ? <CheckIcon /> : <CloseIcon />;
+    }
 
     return (
         <>
@@ -52,17 +52,12 @@ const Index = () => {
                 ))
             ) : (
                 <>
-                    <TextInput
-                        submitFunction={answer => {
-                            socket.emit("answer", answer);
-                            setSubmittedAnswer(answer);
-                        }}
-                    />
-                    {submittedAnswer && (
+                    <TextInput submitFunction={answer => socket.emit("answer", answer)} />
+                    {team.chosenAnswer && (
                         <Text display="flex">
                             Submitted answer:{" "}
                             <Text ml="1" color="yellow.300">
-                                {submittedAnswer}
+                                {team.chosenAnswer}
                             </Text>
                         </Text>
                     )}

@@ -1,13 +1,16 @@
 import { Button, Heading, Spinner } from "@chakra-ui/react";
+import { Chart } from "../components/Chart";
 import { useSockets } from "../socket.context";
 
 const Projector = () => {
-    const { questionGroupIndex, questionIndex, questions, teams } = useSockets();
+    const { questionGroupIndex, questionIndex, questions, teams, showChart } = useSockets();
     if (questions.length === 0) return <Spinner />;
 
     const questionGroup = questions[questionGroupIndex];
     const currentQuestion = questionGroup.questions[questionIndex];
     const allTeams = Object.values(teams);
+
+    if (showChart) return <Chart teams={teams} />;
 
     return (
         <>

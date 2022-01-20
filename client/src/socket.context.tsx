@@ -14,6 +14,7 @@ interface SocketContext {
     questionGroupIndex: number;
     questionIndex: number;
     teams: Teams;
+    showChart: boolean;
 }
 
 const socket = io(SOCKET_URL);
@@ -24,6 +25,7 @@ const SocketContext = createContext<SocketContext>({
     questionGroupIndex: 0,
     questionIndex: 0,
     teams: {},
+    showChart: false,
 });
 
 const SocketsProvider: React.FC = props => {
@@ -39,9 +41,12 @@ const SocketsProvider: React.FC = props => {
     const [teams, setTeams] = useState<Teams>({});
     socket.on("teams", value => setTeams(value));
 
+    const [showChart, setShowChart] = useState(false);
+    socket.on("show_chart", value => setShowChart(value));
+
     return (
         <SocketContext.Provider
-            value={{ socket, questions, questionGroupIndex, questionIndex, teams }}
+            value={{ socket, questions, questionGroupIndex, questionIndex, teams, showChart }}
             {...props}
         />
     );
