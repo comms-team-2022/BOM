@@ -1,1 +1,1 @@
-export const SOCKET_URL = process.env.SOCKET_URL || "http://localhost:8080";
+export const SOCKET_URL = process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:8080";
