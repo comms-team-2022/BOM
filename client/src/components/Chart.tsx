@@ -8,7 +8,7 @@ interface ChartProps {
 const teamColors = {
     graham: "red",
     wesley: "yellow",
-    eliot: "green",
+    elliot: "green",
     booth: "blue",
 };
 

@@ -25,8 +25,8 @@ const Index = () => {
                 <Button colorScheme="blue" onClick={() => socket.emit("house_login", "booth")}>
                     Booth
                 </Button>
-                <Button colorScheme="green" onClick={() => socket.emit("house_login", "eliot")}>
-                    Eliot
+                <Button colorScheme="green" onClick={() => socket.emit("house_login", "elliot")}>
+                    Elliot
                 </Button>
             </>
         );
