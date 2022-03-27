@@ -37,6 +37,11 @@
                 "question": "What are the three main types of rock?",
                 "isMultiChoice": false,
                 "answer": "Igneous, Sedimentary, Metamorphic"
+            },
+            {
+                "question": "What is the only US state that begins with the letter P?",
+                "isMultiChoice": false,
+                "answer": "Pennsylvania"
             }
         ]
     },
@@ -54,6 +59,16 @@
                     "$\\frac{5}{2} e^{2x} +2x\\ln( x)$"
                 ],
                 "correctIndex": 2
+            },
+            {
+                "question": "Over what part of Long Island do the eyes of Dr. T.J. Eckleberg watch over?",
+                "isMultiChoice": false,
+                "answer": "The Valley of Ashes"
+            },
+            {
+                "question": "What is the radius of pluto?",
+                "isMultiChoice": false,
+                "answer": "1188km"
             }
         ]
     }
