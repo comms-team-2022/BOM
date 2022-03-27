@@ -6,6 +6,7 @@ import { TeamCorrect } from "../../../types";
 import { Chart } from "../components/Chart";
 import { TextInput } from "../components/TextInput";
 import { useSockets } from "../socket.context";
+import Latex from "react-latex-next";
 
 const Admin = () => {
     const { socket, teams, questionGroupIndex, questionIndex, questions, showChart } = useSockets();
@@ -34,14 +35,16 @@ const Admin = () => {
                 {showChart && <Chart teams={teams} />}
 
                 <p>Grade {questionGroup.grade}</p>
-                <Heading>{currentQuestion.question}</Heading>
+                <Heading>
+                    <Latex>{currentQuestion.question}</Latex>
+                </Heading>
                 {currentQuestion.isMultiChoice
                     ? currentQuestion.answers.map((answer, i) => (
                           <Button
                               key={i}
                               colorScheme={currentQuestion.correctIndex === i ? "green" : undefined}
                           >
-                              {answer}
+                              <Latex>{answer}</Latex>
                           </Button>
                       ))
                     : currentQuestion.answer}

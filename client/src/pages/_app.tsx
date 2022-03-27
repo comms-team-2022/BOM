@@ -1,6 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import SocketsProvider from "../socket.context";
-
+import "katex/dist/katex.min.css";
 import theme from "../theme";
 import { AppProps } from "next/app";
 

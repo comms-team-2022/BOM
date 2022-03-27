@@ -3,21 +3,30 @@
         "grade": 7,
         "questions": [
             {
-                "question": "What is a triangle?",
-                "isMultiChoice": true,
-                "answers": ["a 3 sided shape", "idk", "not a square", "a two sided shape"],
-                "correctIndex": 0
-            },
-            {
-                "question": "Who's Joe?",
-                "isMultiChoice": true,
-                "answers": ["Biden", "Mama", "Swanson", "Stalin"],
-                "correctIndex": 1
-            },
-            {
-                "question": "Why?",
+                "question": "What is the second planet from the sun?",
                 "isMultiChoice": false,
-                "answer": "idk"
+                "answer": "Venus"
+            },
+            {
+                "question": "When 2 dice are rolled, what is the most likley sum of their values?",
+                "isMultiChoice": false,
+                "answer": "7"
+            },
+            {
+                "question": "What is an adverb?",
+                "isMultiChoice": false,
+                "answer": "A word or phrase that modifies or qualifies an adjective, verb, or other adverb or a word group, expressing a relation of something."
+            },
+            {
+                "question": "Who was The Peloponnesian War, fought between the Greeks and the Persians, led by?",
+                "isMultiChoice": true,
+                "answers": ["Cyrus the Great", "Artaxerxes II", "Darius II", "Xerxes I"],
+                "correctIndex": 3
+            },
+            {
+                "question": "Who plays Elsa in Frozen?",
+                "isMultiChoice": false,
+                "answer": "Idina Menzel"
             }
         ]
     },
@@ -25,79 +34,26 @@
         "grade": 8,
         "questions": [
             {
-                "question": "What is a triangle?",
-                "isMultiChoice": true,
-                "answers": ["a 3 sided shape", "idk", "not a square", "a two sided shape"],
-                "correctIndex": 0
-            },
-            {
-                "question": "Why?",
+                "question": "What are the three main types of rock?",
                 "isMultiChoice": false,
-                "answer": "idk"
+                "answer": "Igneous, Sedimentary, Metamorphic"
             }
         ]
     },
-    {
-        "grade": 9,
-        "questions": [
-            {
-                "question": "What is a triangle?",
-                "isMultiChoice": true,
-                "answers": ["a 3 sided shape", "idk", "not a square", "a two sided shape"],
-                "correctIndex": 0
-            },
-            {
-                "question": "Why?",
-                "isMultiChoice": false,
-                "answer": "idk"
-            }
-        ]
-    },
-    {
-        "grade": 10,
-        "questions": [
-            {
-                "question": "What is a triangle?",
-                "isMultiChoice": true,
-                "answers": ["a 3 sided shape", "idk", "not a square", "a two sided shape"],
-                "correctIndex": 0
-            },
-            {
-                "question": "Why?",
-                "isMultiChoice": false,
-                "answer": "idk"
-            }
-        ]
-    },
-    {
-        "grade": 11,
-        "questions": [
-            {
-                "question": "What is a triangle?",
-                "isMultiChoice": true,
-                "answers": ["a 3 sided shape", "idk", "not a square", "a two sided shape"],
-                "correctIndex": 0
-            },
-            {
-                "question": "Why?",
-                "isMultiChoice": false,
-                "answer": "idk"
-            }
-        ]
-    },
+
     {
         "grade": 12,
         "questions": [
             {
-                "question": "What is a triangle?",
+                "question": "Differentiate the following function: $5e^{2x} +\\ln\\left( x^{2}\\right)$",
                 "isMultiChoice": true,
-                "answers": ["a 3 sided shape", "idk", "not a square", "a two sided shape"],
-                "correctIndex": 0
-            },
-            {
-                "question": "Why?",
-                "isMultiChoice": false,
-                "answer": "idk"
+                "answers": [
+                    "$10e^{x} +\\frac{x}{x^{2}}$",
+                    "$5e^{2x} +\\frac{2x}{x^{2}}$",
+                    "$10e^{2x} +\\frac{2}{x}$",
+                    "$\\frac{5}{2} e^{2x} +2x\\ln( x)$"
+                ],
+                "correctIndex": 2
             }
         ]
     }
