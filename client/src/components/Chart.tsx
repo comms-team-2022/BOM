@@ -1,17 +1,10 @@
 import { Bar, BarChart, Cell, XAxis, YAxis } from "recharts";
 import { Teams } from "../../../types";
+import { teamColors } from "../constants";
 
 interface ChartProps {
     teams: Teams;
 }
-
-const teamColors = {
-    graham: "red",
-    wesley: "yellow",
-    elliot: "green",
-    booth: "blue",
-};
-
 export const Chart: React.FC<ChartProps> = ({ teams }) => {
     const data = Object.values(teams);
 
