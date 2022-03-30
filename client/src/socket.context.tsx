@@ -6,6 +6,7 @@ import { io, Socket } from "socket.io-client";
 import { DefaultEventsMap } from "socket.io-client/build/typed-events";
 import { SOCKET_URL } from "../config/default";
 import { QuestionGroup, Teams } from "../../types";
+import { Page } from "./constants";
 
 interface SocketContext {
     // TODO: Replace DefaultEventsMap with actual events
@@ -14,7 +15,7 @@ interface SocketContext {
     questionGroupIndex: number;
     questionIndex: number;
     teams: Teams;
-    showChart: boolean;
+    page: Page;
 }
 
 const socket = io(SOCKET_URL);
@@ -25,7 +26,7 @@ const SocketContext = createContext<SocketContext>({
     questionGroupIndex: 0,
     questionIndex: 0,
     teams: {},
-    showChart: false,
+    page: Page.START,
 });
 
 const SocketsProvider: React.FC = props => {
@@ -41,12 +42,12 @@ const SocketsProvider: React.FC = props => {
     const [teams, setTeams] = useState<Teams>({});
     socket.on("teams", value => setTeams(value));
 
-    const [showChart, setShowChart] = useState(false);
-    socket.on("show_chart", value => setShowChart(value));
+    const [page, setPage] = useState(Page.START);
+    socket.on("page", value => setPage(value));
 
     return (
         <SocketContext.Provider
-            value={{ socket, questions, questionGroupIndex, questionIndex, teams, showChart }}
+            value={{ socket, questions, questionGroupIndex, questionIndex, teams, page }}
             {...props}
         />
     );

@@ -2,18 +2,30 @@ import { Button, Heading, Spinner, Flex, Box, Text, VStack } from "@chakra-ui/re
 import Latex from "react-latex-next";
 import { PieChart, Pie, Cell } from "recharts";
 import { Chart } from "../components/Chart";
-import { teamColors } from "../constants";
+import { Page, teamColors } from "../constants";
 import { useSockets } from "../socket.context";
 
 const Projector = () => {
-    const { questionGroupIndex, questionIndex, questions, teams, showChart } = useSockets();
+    const { questionGroupIndex, questionIndex, questions, teams, page } = useSockets();
     if (questions.length === 0) return <Spinner />;
 
     const questionGroup = questions[questionGroupIndex];
     const currentQuestion = questionGroup.questions[questionIndex];
     const allTeams = Object.values(teams);
 
-    if (showChart) return <Chart teams={teams} />;
+    switch (page) {
+        case Page.START:
+            return (
+                <Flex h="100vh" justifyContent="center" alignItems="center">
+                    <Box textAlign="center">
+                        <Heading fontSize="17em">BOM</Heading>
+                        <Text fontSize="5xl">Battle of the Minds</Text>
+                    </Box>
+                </Flex>
+            );
+        case Page.CHART:
+            return <Chart teams={teams} />;
+    }
 
     const questionFinished = allTeams[0]?.isCorrect !== undefined;
 

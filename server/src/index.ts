@@ -11,6 +11,15 @@ const corsOrigin = config.get<string>("corsOrigin");
 const http = createServer();
 const io = new Server(http, { cors: { origin: corsOrigin } });
 
+// Make sure this is the same as the one in constants.ts in client
+const enum Page {
+    START,
+    GRADE,
+    QUESTION,
+    CHART,
+    END,
+}
+
 //#region State Initialisation
 
 // Default grade
@@ -19,8 +28,7 @@ let questionGroupIndex = 0;
 let questionIndex = 0;
 // House information; Keys are ids
 const teams: Teams = {};
-// Don't show chart by default
-let showChart = false;
+let page = Page.START;
 
 //#endregion
 
@@ -33,8 +41,7 @@ io.on("connection", socket => {
     socket.emit("question_group_index", questionGroupIndex);
     // Send over team information
     socket.emit("teams", teams);
-    // Whether to show chart
-    socket.emit("show_chart", showChart);
+    socket.emit("page", page);
 
     // TODO: prevent multiple users using the same house
     socket.on("house_login", house => {
@@ -101,10 +108,9 @@ io.on("connection", socket => {
             io.sockets.emit("teams", teams);
         });
 
-        socket.on("admin_toggle_chart", () => {
-            showChart = !showChart;
-            console.log(showChart ? "Chart Shown" : "Chart Hidden");
-            io.sockets.emit("show_chart", showChart);
+        socket.on("admin_change_page", (new_page: Page) => {
+            page = new_page;
+            io.sockets.emit("page", page);
         });
     });
 

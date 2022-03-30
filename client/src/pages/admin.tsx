@@ -7,9 +7,11 @@ import { Chart } from "../components/Chart";
 import { TextInput } from "../components/TextInput";
 import { useSockets } from "../socket.context";
 import Latex from "react-latex-next";
+import { Page } from "../constants";
+import { PageButton } from "../components/PageButton";
 
 const Admin = () => {
-    const { socket, teams, questionGroupIndex, questionIndex, questions, showChart } = useSockets();
+    const { socket, teams, questionGroupIndex, questionIndex, questions, page } = useSockets();
     const [loginSuccess, setLoginSuccess] = useState(false);
     const [teamCorrect, setTeamCorrect] = useState<TeamCorrect>({});
 
@@ -29,10 +31,23 @@ const Admin = () => {
             <>
                 <Heading mb="5">Admin Page</Heading>
 
-                <Button onClick={() => socket.emit("admin_toggle_chart")}>
-                    {showChart ? "Hide" : "Show"} Chart on Projector
-                </Button>
-                {showChart && <Chart teams={teams} />}
+                <hr />
+
+                <Heading>Page</Heading>
+
+                <PageButton currentPage={page} targetPage={Page.START} socket={socket}>
+                    Start (BOM)
+                </PageButton>
+                <PageButton currentPage={page} targetPage={Page.QUESTION} socket={socket}>
+                    Question
+                </PageButton>
+                <PageButton currentPage={page} targetPage={Page.CHART} socket={socket}>
+                    Chart
+                </PageButton>
+
+                <hr />
+
+                {page === Page.CHART && <Chart teams={teams} />}
 
                 <p>Grade {questionGroup.grade}</p>
                 <Heading>
