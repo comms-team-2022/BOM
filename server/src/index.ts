@@ -96,6 +96,8 @@ io.on("connection", socket => {
             if (questionIndex === questions[questionGroupIndex].questions.length) {
                 questionIndex = 0;
                 questionGroupIndex++;
+                page = Page.GRADE;
+                io.sockets.emit("page", page);
             }
 
             for (const id in teams) {

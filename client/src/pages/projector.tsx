@@ -18,9 +18,15 @@ const Projector = () => {
             return (
                 <Flex h="100vh" justifyContent="center" alignItems="center">
                     <Box textAlign="center">
-                        <Heading fontSize="17em">BOM</Heading>
+                        <Heading fontSize="18em">BOM</Heading>
                         <Text fontSize="5xl">Battle of the Minds</Text>
                     </Box>
+                </Flex>
+            );
+        case Page.GRADE:
+            return (
+                <Flex h="100vh" justifyContent="center" alignItems="center">
+                    <Heading fontSize="14em">Grade {questionGroup.grade}</Heading>
                 </Flex>
             );
         case Page.CHART:

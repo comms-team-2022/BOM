@@ -38,6 +38,9 @@ const Admin = () => {
                 <PageButton currentPage={page} targetPage={Page.START} socket={socket}>
                     Start (BOM)
                 </PageButton>
+                <PageButton currentPage={page} targetPage={Page.GRADE} socket={socket}>
+                    Grade
+                </PageButton>
                 <PageButton currentPage={page} targetPage={Page.QUESTION} socket={socket}>
                     Question
                 </PageButton>
