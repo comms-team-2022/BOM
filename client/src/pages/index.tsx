@@ -1,5 +1,6 @@
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import { Button, Spinner, Heading, Text } from "@chakra-ui/react";
+import Latex from "react-latex-next";
 import { TextInput } from "../components/TextInput";
 import { useSockets } from "../socket.context";
 
@@ -39,7 +40,9 @@ const Index = () => {
         <>
             <p>{team.house}</p>
             <p>Grade {questionGroup.grade}</p>
-            <Heading>{currentQuestion.question}</Heading>
+            <Heading>
+                <Latex>{currentQuestion.question}</Latex>
+            </Heading>
             {currentQuestion.isMultiChoice ? (
                 currentQuestion.answers.map((answer, i) => (
                     <Button
@@ -47,7 +50,7 @@ const Index = () => {
                         onClick={() => socket.emit("answer", i)}
                         colorScheme={team.chosenAnswer === i ? "yellow" : undefined}
                     >
-                        {answer}
+                        <Latex>{answer}</Latex>
                     </Button>
                 ))
             ) : (
