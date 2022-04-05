@@ -18,7 +18,7 @@
                 "answer": "A word or phrase that modifies or qualifies an adjective, verb, or other adverb or a word group, expressing a relation of something."
             },
             {
-                "question": "Who was The Peloponnesian War, fought between the Greeks and the Persians, led by?",
+                "question": "Who were the Perisans led by in the Second Persian invasion of Greece? ",
                 "isMultiChoice": true,
                 "answers": ["Cyrus the Great", "Artaxerxes II", "Darius II", "Xerxes I"],
                 "correctIndex": 3
@@ -39,6 +39,23 @@
                 "answer": "Igneous, Sedimentary, Metamorphic"
             },
             {
+                "question": "Simplify $\\frac{\\left( 4x^{3}\\right)^{2}}{x^{2}}$",
+                "isMultiChoice": true,
+                "answers": ["$4x^{3}$", "$\\frac{16x^{6}}{x^{2}}$", "$16x^{3}$", "$16x^{4}$"],
+                "correctIndex": 3
+            },
+            {
+                "question": "In the book 'Holes', what is the warden's secret ingredient in her nail polish?",
+                "isMultiChoice": false,
+                "answer": "Rattlesnake Venom"
+            },
+            {
+                "question": "How many British Monarchs were named George? (How many King George's)?",
+                "isMultiChoice": true,
+                "answers": ["6", "10", "2", "4"],
+                "correctIndex": 0
+            },
+            {
                 "question": "What is the only US state that begins with the letter P?",
                 "isMultiChoice": false,
                 "answer": "Pennsylvania"
@@ -46,8 +63,102 @@
         ]
     },
     {
+        "grade": 9,
+        "questions": [
+            {
+                "question": "What are divergent boundaries?",
+                "isMultiChoice": false,
+                "answer": "Tectonic plates that are moving away from each other"
+            },
+            {
+                "question": "Expand $(2x+3y)^{2}$",
+                "isMultiChoice": true,
+                "answers": [
+                    "$4x^{2}+6xy+3y^{2}$",
+                    "$13x^{2} y^{2}$",
+                    "$4x^{2} +9y^{2}$",
+                    "$4x^{2} +12xy+9y^{2}$"
+                ],
+                "correctIndex": 3
+            },
+            {
+                "question": "Who wrote Chinese Cinderella?",
+                "isMultiChoice": false,
+                "answer": "Adeline Yen Mah"
+            },
+            {
+                "question": "When was the Industrial Revolution?",
+                "isMultiChoice": true,
+                "answers": ["1450 - 1780", "1760 - 1840", "1830 - 1910", "1939 - 1945"],
+                "correctIndex": 1
+            },
+            {
+                "question": "Who wrote the song \"Can't have you\"?",
+                "isMultiChoice": false,
+                "answer": "Shawn Mendes"
+            }
+        ]
+    },
+    {
+        "grade": 10,
+        "questions": [
+            {
+                "question": "What are the first five elements of the periodic table?",
+                "isMultiChoice": false,
+                "answer": "Hydrogen, Helium, Lithium, Beryllium, Boron"
+            },
+            {
+                "question": "Solve $2\\cos( 60\\degree ) -1$",
+                "isMultiChoice": false,
+                "answer": "0"
+            },
+            {
+                "question": "Which of these sentences uses semicolons correctly?",
+                "isMultiChoice": true,
+                "answers": [
+                    "Although they tried; they failed.",
+                    "Dante Martinez, a registered nurse; Susan Brooks, a dietician; and Chien-Ling Ko, a physical therapist, attended the meeting.",
+                    "The conference has people who have come from Moscow, Idaho; Springfield, California, Alamo, Tennessee, and other places as well.",
+                    "According to my calculations; it should definitely work."
+                ],
+                "correctIndex": 1
+            },
+            {
+                "question": "Which European country held out against attacks from the USSR during World War 2?",
+                "isMultiChoice": true,
+                "answers": ["Poland", "Romania", "Finland", "Norway"],
+                "correctIndex": 2
+            },
+            {
+                "question": "What is a group of crows called?",
+                "isMultiChoice": false,
+                "answer": "A murder"
+            }
+        ]
+    },
+    {
         "grade": 11,
         "questions": [
+            {
+                "question": "What is the energy carrying molecule of the cell?",
+                "isMultiChoice": false,
+                "answer": "Adenosine Triphosphate (ATP)"
+            },
+            {
+                "question": "What is the turning point of $y=( 2x-5)^{2} +3$",
+                "isMultiChoice": false,
+                "answer": "(2.5, 3)"
+            },
+            {
+                "question": "What nationality is Gibson from the Dunkirk movie?",
+                "isMultiChoice": false,
+                "answer": "French"
+            },
+            {
+                "question": "Who did Cleopatra VII marry?",
+                "isMultiChoice": false,
+                "answer": "Julius Caesar and Mark Antony"
+            },
             {
                 "question": "In what country was the first electric car ever built?",
                 "isMultiChoice": false,
@@ -75,7 +186,13 @@
                 "answer": "The Valley of Ashes"
             },
             {
-                "question": "What is the radius of pluto?",
+                "question": "In what year did Adolf Hitler become Chancellor of Germany?",
+                "isMultiChoice": true,
+                "answers": ["1939", "1933", "1945", "1935"],
+                "correctIndex": 1
+            },
+            {
+                "question": "What is the radius of pluto? (The 2 closest teams will win)",
                 "isMultiChoice": false,
                 "answer": "1188km"
             }
