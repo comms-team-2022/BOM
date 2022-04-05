@@ -2,6 +2,7 @@ import { Button, Heading, Spinner, Flex, Box, Text, VStack } from "@chakra-ui/re
 import Latex from "react-latex-next";
 import { PieChart, Pie, Cell } from "recharts";
 import { Chart } from "../components/Chart";
+import { StartPage } from "../components/StartPage";
 import { Page, teamColors } from "../constants";
 import { useSockets } from "../socket.context";
 
@@ -15,14 +16,7 @@ const Projector = () => {
 
     switch (page) {
         case Page.START:
-            return (
-                <Flex h="100vh" justifyContent="center" alignItems="center">
-                    <Box textAlign="center">
-                        <Heading fontSize="18em">BOM</Heading>
-                        <Text fontSize="5xl">Battle of the Minds</Text>
-                    </Box>
-                </Flex>
-            );
+            return <StartPage />;
         case Page.GRADE:
             return (
                 <Flex h="100vh" justifyContent="center" alignItems="center">
@@ -59,35 +53,26 @@ const Projector = () => {
                         team => team.isCorrect && <div>poggers {team.house} was correct</div>
                     )
                 ) : (
-                    <>
-                        <PieChart width={200} height={200}>
-                            <Pie
-                                data={allTeams.map(team => ({
-                                    name: team.house,
-                                    value: Number(team.chosenAnswer !== undefined),
-                                }))}
-                                innerRadius={60}
-                                outerRadius={80}
-                                fill="#8884d8"
-                                paddingAngle={4}
-                                dataKey="value"
-                            >
-                                {allTeams.map(team => (
-                                    <Cell
-                                        key={`cell-${team.house}`}
-                                        // @ts-expect-error
-                                        fill={teamColors[team.house]}
-                                    ></Cell>
-                                ))}
-                            </Pie>
-                        </PieChart>
-
-                        {/* TODO: figure out whether to keep this */}
-                        {/* {allTeams.map(
-                        team =>
-                            team.chosenAnswer !== undefined && <div>{team.house} has answered</div>
-                    )} */}
-                    </>
+                    <PieChart width={200} height={200}>
+                        <Pie
+                            data={allTeams.map(team => ({
+                                name: team.house,
+                                value: Number(team.chosenAnswer !== undefined),
+                            }))}
+                            innerRadius={60}
+                            outerRadius={80}
+                            fill="#8884d8"
+                            paddingAngle={4}
+                            dataKey="value"
+                        >
+                            {allTeams.map(team => (
+                                <Cell
+                                    key={`cell-${team.house}`}
+                                    fill={teamColors[team.house as keyof typeof teamColors]}
+                                ></Cell>
+                            ))}
+                        </Pie>
+                    </PieChart>
                 )}
             </VStack>
         </Box>

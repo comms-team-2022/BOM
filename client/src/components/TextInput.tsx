@@ -17,8 +17,14 @@ export const TextInput: React.FC<TextInputProps> = ({ submitFunction, ...props }
                 setInputValue("");
             }}
         >
-            <Input value={inputValue} onChange={e => setInputValue(e.target.value)} {...props} />
-            <Button type="submit" disabled={!inputValue}>
+            <Input
+                minW="40em"
+                mb="3"
+                value={inputValue}
+                onChange={e => setInputValue(e.target.value)}
+                {...props}
+            />
+            <Button type="submit" disabled={!inputValue} p="6">
                 Submit
             </Button>
         </form>
