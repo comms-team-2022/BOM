@@ -5,6 +5,7 @@ import { TextInput } from "../components/TextInput";
 import { useSockets } from "../socket.context";
 import { Page, teamColors } from "../constants";
 import { StartPage } from "../components/StartPage";
+import { GradePage } from "../components/GradePage";
 
 const Index = () => {
     const { socket, questionGroupIndex, questionIndex, questions, teams, page } = useSockets();
@@ -37,10 +38,8 @@ const Index = () => {
     switch (page) {
         case Page.START:
             return <StartPage />;
-    }
-
-    if (team.isCorrect !== undefined) {
-        return team.isCorrect ? <CheckIcon /> : <CloseIcon />;
+        case Page.GRADE:
+            return <GradePage grade={questionGroup.grade} />;
     }
 
     return (
@@ -57,36 +56,46 @@ const Index = () => {
                 </Text>
             </Flex>
             <Flex h="91vh" justifyContent="center" alignItems="center">
-                <Stack textAlign="center" alignItems="center" spacing="5">
-                    <Heading>
-                        <Latex>{currentQuestion.question}</Latex>
-                    </Heading>
-                    {currentQuestion.isMultiChoice ? (
-                        <Stack direction="row">
-                            {currentQuestion.answers.map((answer, i) => (
-                                <Button
-                                    key={i}
-                                    onClick={() => socket.emit("answer", i)}
-                                    colorScheme={team.chosenAnswer === i ? "yellow" : undefined}
-                                >
-                                    <Latex>{answer}</Latex>
-                                </Button>
-                            ))}
-                        </Stack>
+                {team.isCorrect !== undefined ? (
+                    team.isCorrect ? (
+                        <CheckIcon boxSize="20em" bg="green" p="3em" borderRadius="10em" />
                     ) : (
-                        <>
-                            <TextInput submitFunction={answer => socket.emit("answer", answer)} />
-                            {team.chosenAnswer && (
-                                <Text display="flex">
-                                    Submitted answer:{" "}
-                                    <Text ml="1" color="yellow.300">
-                                        {team.chosenAnswer}
+                        <CloseIcon boxSize="20em" bg="red" p="3em" borderRadius="10em" />
+                    )
+                ) : (
+                    <Stack textAlign="center" alignItems="center" spacing="5">
+                        <Heading>
+                            <Latex>{currentQuestion.question}</Latex>
+                        </Heading>
+                        {currentQuestion.isMultiChoice ? (
+                            <Stack direction="row">
+                                {currentQuestion.answers.map((answer, i) => (
+                                    <Button
+                                        key={i}
+                                        onClick={() => socket.emit("answer", i)}
+                                        colorScheme={team.chosenAnswer === i ? "yellow" : undefined}
+                                    >
+                                        <Latex>{answer}</Latex>
+                                    </Button>
+                                ))}
+                            </Stack>
+                        ) : (
+                            <>
+                                <TextInput
+                                    submitFunction={answer => socket.emit("answer", answer)}
+                                />
+                                {team.chosenAnswer && (
+                                    <Text display="flex">
+                                        Submitted answer:{" "}
+                                        <Text ml="1" color="yellow.300">
+                                            {team.chosenAnswer}
+                                        </Text>
                                     </Text>
-                                </Text>
-                            )}
-                        </>
-                    )}
-                </Stack>
+                                )}
+                            </>
+                        )}
+                    </Stack>
+                )}
             </Flex>
         </>
     );

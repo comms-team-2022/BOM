@@ -2,6 +2,7 @@ import { Button, Heading, Spinner, Flex, Box, Text, VStack } from "@chakra-ui/re
 import Latex from "react-latex-next";
 import { PieChart, Pie, Cell } from "recharts";
 import { Chart } from "../components/Chart";
+import { GradePage } from "../components/GradePage";
 import { StartPage } from "../components/StartPage";
 import { Page, teamColors } from "../constants";
 import { useSockets } from "../socket.context";
@@ -18,11 +19,7 @@ const Projector = () => {
         case Page.START:
             return <StartPage />;
         case Page.GRADE:
-            return (
-                <Flex h="100vh" justifyContent="center" alignItems="center">
-                    <Heading fontSize="14em">Grade {questionGroup.grade}</Heading>
-                </Flex>
-            );
+            return <GradePage grade={questionGroup.grade} />;
         case Page.CHART:
             return <Chart teams={teams} />;
     }
