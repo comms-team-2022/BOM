@@ -1,6 +1,7 @@
 import { Button, Heading, Spinner, Flex, Box, Text, VStack } from "@chakra-ui/react";
 import Latex from "react-latex-next";
 import { PieChart, Pie, Cell } from "recharts";
+import { TeamInfo } from "../../../types";
 import { Chart } from "../components/Chart";
 import { GradePage } from "../components/GradePage";
 import { StartPage } from "../components/StartPage";
@@ -13,7 +14,7 @@ const Projector = () => {
 
     const questionGroup = questions[questionGroupIndex];
     const currentQuestion = questionGroup.questions[questionIndex];
-    const allTeams = Object.values(teams);
+    const allTeams: TeamInfo[] = Object.values(teams);
 
     switch (page) {
         case Page.START:
@@ -24,7 +25,7 @@ const Projector = () => {
             return <Chart teams={teams} />;
     }
 
-    const questionFinished = allTeams[0]?.isCorrect !== undefined;
+    const questionFinished = teams.graham.isCorrect !== undefined;
 
     return (
         <Box p="5" h="100vh">
@@ -65,7 +66,7 @@ const Projector = () => {
                             {allTeams.map(team => (
                                 <Cell
                                     key={`cell-${team.house}`}
-                                    fill={teamColors[team.house as keyof typeof teamColors]}
+                                    fill={teamColors[team.house]}
                                 ></Cell>
                             ))}
                         </Pie>

@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/button";
 import { Box, Heading } from "@chakra-ui/layout";
 import { Spinner } from "@chakra-ui/spinner";
 import { useEffect, useState } from "react";
-import { TeamCorrect } from "../../../types";
+import { TeamCorrect, Teams } from "../../../types";
 import { Chart } from "../components/Chart";
 import { TextInput } from "../components/TextInput";
 import { useSockets } from "../socket.context";
@@ -84,8 +84,8 @@ const Admin = () => {
                     </Button>
                 )}
 
-                {Object.keys(teams).map(id => {
-                    const team = teams[id];
+                {Object.keys(teams).map(house => {
+                    const team = teams[house as keyof Teams];
                     const chosenAnswer = team.chosenAnswer;
 
                     let colour;
@@ -97,16 +97,16 @@ const Admin = () => {
                         if (chosenAnswer !== undefined)
                             answer = currentQuestion.answers[chosenAnswer as number];
                     } else {
-                        if (teamCorrect[id]) colour = "green.700";
-                        else if (teamCorrect[id] !== undefined) colour = "red.700";
+                        if (teamCorrect[house as keyof Teams]) colour = "green.700";
+                        else if (teamCorrect[house as keyof Teams] !== undefined)
+                            colour = "red.700";
 
                         if (chosenAnswer !== undefined) answer = team.chosenAnswer as string;
                     }
 
                     return (
-                        <Box borderWidth="thin" my="3" p="3" key={id} bgColor={colour}>
-                            <Heading>{team.house}</Heading>
-                            <p>Id: {id}</p>
+                        <Box borderWidth="thin" my="3" p="3" key={house} bgColor={colour}>
+                            <Heading>{house}</Heading>
                             <p>Score: {team.score}</p>
                             <p>Answer: {answer}</p>
                             {!currentQuestion.isMultiChoice && (
@@ -114,7 +114,7 @@ const Admin = () => {
                                     <Button
                                         colorScheme="green"
                                         onClick={() =>
-                                            setTeamCorrect({ ...teamCorrect, [id]: true })
+                                            setTeamCorrect({ ...teamCorrect, [house]: true })
                                         }
                                     >
                                         Correct
@@ -122,7 +122,7 @@ const Admin = () => {
                                     <Button
                                         colorScheme="red"
                                         onClick={() =>
-                                            setTeamCorrect({ ...teamCorrect, [id]: false })
+                                            setTeamCorrect({ ...teamCorrect, [house]: false })
                                         }
                                     >
                                         Incorrect

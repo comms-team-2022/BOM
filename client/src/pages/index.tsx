@@ -6,34 +6,39 @@ import { useSockets } from "../socket.context";
 import { Page, teamColors } from "../constants";
 import { StartPage } from "../components/StartPage";
 import { GradePage } from "../components/GradePage";
+import { useState } from "react";
+import { Teams } from "../../../types";
 
 const Index = () => {
     const { socket, questionGroupIndex, questionIndex, questions, teams, page } = useSockets();
+    const [house, setHouse] = useState<keyof Teams | null>(null);
     if (questions.length === 0) return <Spinner />;
 
     const questionGroup = questions[questionGroupIndex];
     const currentQuestion = questionGroup.questions[questionIndex];
-    const team = teams[socket.id];
 
     // If haven't chosen house
-    if (!team)
+    if (house === null) {
         return (
             <>
-                <Heading>What Team Are You?</Heading>
-                <Button colorScheme="red" onClick={() => socket.emit("house_login", "graham")}>
+                <Heading>Which House Are You?</Heading>
+                <Button colorScheme="red" onClick={() => setHouse("graham")}>
                     Graham
                 </Button>
-                <Button colorScheme="yellow" onClick={() => socket.emit("house_login", "wesley")}>
+                <Button colorScheme="yellow" onClick={() => setHouse("wesley")}>
                     Wesley
                 </Button>
-                <Button colorScheme="blue" onClick={() => socket.emit("house_login", "booth")}>
+                <Button colorScheme="blue" onClick={() => setHouse("booth")}>
                     Booth
                 </Button>
-                <Button colorScheme="green" onClick={() => socket.emit("house_login", "elliot")}>
+                <Button colorScheme="green" onClick={() => setHouse("elliot")}>
                     Elliot
                 </Button>
             </>
         );
+    }
+
+    const team = teams[house];
 
     switch (page) {
         case Page.START:
@@ -44,15 +49,10 @@ const Index = () => {
 
     return (
         <>
-            <Flex
-                w="100%"
-                bg={teamColors[team.house as keyof typeof teamColors]}
-                p="6"
-                justifyContent="space-between"
-            >
+            <Flex w="100%" bg={teamColors[house]} p="6" justifyContent="space-between">
                 <Text fontWeight="medium">Grade {questionGroup.grade}</Text>
                 <Text textTransform="capitalize" fontWeight="medium">
-                    {team.house}
+                    {house}
                 </Text>
             </Flex>
             <Flex h="91vh" justifyContent="center" alignItems="center">
@@ -72,8 +72,10 @@ const Index = () => {
                                 {currentQuestion.answers.map((answer, i) => (
                                     <Button
                                         key={i}
-                                        onClick={() => socket.emit("answer", i)}
+                                        onClick={() => socket.emit("answer", i, house)}
                                         colorScheme={team.chosenAnswer === i ? "yellow" : undefined}
+                                        fontSize="2em"
+                                        p="1.3em"
                                     >
                                         <Latex>{answer}</Latex>
                                     </Button>
@@ -82,7 +84,7 @@ const Index = () => {
                         ) : (
                             <>
                                 <TextInput
-                                    submitFunction={answer => socket.emit("answer", answer)}
+                                    submitFunction={answer => socket.emit("answer", answer, house)}
                                 />
                                 {team.chosenAnswer && (
                                     <Text display="flex">

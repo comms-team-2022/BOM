@@ -20,17 +20,18 @@ const enum Page {
     END,
 }
 
-//#region State Initialisation
-
 // Default grade
 let questionGroupIndex = 0;
 // Default question in grade
 let questionIndex = 0;
-// House information; Keys are ids
-const teams: Teams = {};
+// House information
+const teams: Teams = {
+    graham: { score: 0, house: "graham" },
+    wesley: { score: 0, house: "wesley" },
+    elliot: { score: 0, house: "elliot" },
+    booth: { score: 0, house: "booth" },
+};
 let page = Page.START;
-
-//#endregion
 
 // Called when first connects
 io.on("connection", socket => {
@@ -43,20 +44,11 @@ io.on("connection", socket => {
     socket.emit("teams", teams);
     socket.emit("page", page);
 
-    // TODO: prevent multiple users using the same house
-    socket.on("house_login", house => {
-        teams[socket.id] = { house, score: 0 };
-        // emit to all sockets
+    socket.on("answer", (answer: number | string, house: keyof Teams) => {
+        teams[house].chosenAnswer = answer;
         io.sockets.emit("teams", teams);
+        console.log(`${house} answered ${answer}`);
     });
-
-    socket.on("answer", answer => {
-        teams[socket.id].chosenAnswer = answer;
-        io.sockets.emit("teams", teams);
-        console.log(`${socket.id} answered ${answer}`);
-    });
-
-    //#region Admin Stuff
 
     socket.on("admin_login", password => {
         // TODO: Change password to be more secure
@@ -67,24 +59,27 @@ io.on("connection", socket => {
 
         socket.on("admin_finish_question", (teamCorrect: TeamCorrect) => {
             const currentQuestion = questions[questionGroupIndex].questions[questionIndex];
-            for (const id in teams) {
+            for (const house in teams) {
                 let correct: boolean;
 
                 if (currentQuestion.isMultiChoice) {
-                    correct = teams[id].chosenAnswer === currentQuestion.correctIndex;
+                    correct =
+                        teams[house as keyof Teams].chosenAnswer === currentQuestion.correctIndex;
                 } else {
-                    correct = teamCorrect[id];
+                    correct = teamCorrect[house as keyof Teams]!;
                 }
 
                 if (correct) {
-                    teams[id].score += 1;
-                    teams[id].isCorrect = true;
+                    teams[house as keyof Teams].score += 1;
+                    teams[house as keyof Teams].isCorrect = true;
                     console.log(
-                        `${teams[id].house} was correct and their score is now ${teams[id].score}`
+                        `${house} was correct and their score is now ${
+                            teams[house as keyof Teams].score
+                        }`
                     );
                 } else {
-                    teams[id].isCorrect = false;
-                    console.log(`${teams[id].house} was incorrect`);
+                    teams[house as keyof Teams].isCorrect = false;
+                    console.log(`${house} was incorrect`);
                 }
             }
 
@@ -100,9 +95,9 @@ io.on("connection", socket => {
                 io.sockets.emit("page", page);
             }
 
-            for (const id in teams) {
-                teams[id].isCorrect = undefined;
-                teams[id].chosenAnswer = undefined;
+            for (const house in teams) {
+                teams[house as keyof Teams].isCorrect = undefined;
+                teams[house as keyof Teams].chosenAnswer = undefined;
             }
 
             io.sockets.emit("question_index", questionIndex);
@@ -115,8 +110,6 @@ io.on("connection", socket => {
             io.sockets.emit("page", page);
         });
     });
-
-    //#endregion
 });
 
 http.listen(port, host, () => console.log(`listening on http://${host}:${port}`));

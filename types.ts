@@ -21,16 +21,21 @@ export interface QuestionGroup {
     questions: Question[];
 }
 
-export type Teams = {
-    [key: string]: {
-        house: string;
-        score: number;
-        chosenAnswer?: number | string;
-        isCorrect?: boolean;
-    };
-};
+export interface TeamInfo {
+    score: number;
+    chosenAnswer?: number | string;
+    isCorrect?: boolean;
+    house: keyof Teams; // this makes it easier
+}
+
+export interface Teams {
+    graham: TeamInfo;
+    wesley: TeamInfo;
+    elliot: TeamInfo;
+    booth: TeamInfo;
+}
 
 // For non-multichoice questions
 export type TeamCorrect = {
-    [key: keyof Teams]: boolean;
+    [key in keyof Teams]?: boolean;
 };

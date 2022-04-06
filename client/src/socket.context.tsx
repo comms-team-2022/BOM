@@ -18,6 +18,13 @@ interface SocketContext {
     page: Page;
 }
 
+const DEFAULT_TEAM_INFO: Teams = {
+    graham: { score: 0, house: "graham" },
+    wesley: { score: 0, house: "wesley" },
+    elliot: { score: 0, house: "elliot" },
+    booth: { score: 0, house: "booth" },
+};
+
 const socket = io(SOCKET_URL);
 
 const SocketContext = createContext<SocketContext>({
@@ -25,7 +32,7 @@ const SocketContext = createContext<SocketContext>({
     questions: [],
     questionGroupIndex: 0,
     questionIndex: 0,
-    teams: {},
+    teams: DEFAULT_TEAM_INFO,
     page: Page.START,
 });
 
@@ -39,7 +46,7 @@ const SocketsProvider: React.FC = props => {
     const [questionIndex, setQuestionIndex] = useState(0);
     socket.on("question_index", value => setQuestionIndex(value));
     // Information about all of the teams
-    const [teams, setTeams] = useState<Teams>({});
+    const [teams, setTeams] = useState<Teams>(DEFAULT_TEAM_INFO);
     socket.on("teams", value => setTeams(value));
 
     const [page, setPage] = useState(Page.START);
