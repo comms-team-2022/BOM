@@ -8,7 +8,7 @@ You start the server in a production environment with `NODE_ENV=production npm r
 
 -   [ ] Make design nice
 -   [x] Projector screen page
-    -   [ ] Show question and correct answer(s) on result projector page
+    -   [x] Show question and correct answer(s) on result projector page
 -   [ ] Win page
 -   [x] Graph of points
 -   [ ] Create build script for server
