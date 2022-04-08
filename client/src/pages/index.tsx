@@ -1,54 +1,28 @@
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
-import { Button, Spinner, Heading, Text, Flex, Box, Stack } from "@chakra-ui/react";
+import { Button, Spinner, Heading, Text, Flex, Stack } from "@chakra-ui/react";
 import Latex from "react-latex-next";
 import { TextInput } from "../components/TextInput";
 import { useSockets } from "../socket.context";
-import { Page, teamColors } from "../constants";
-import { StartPage } from "../components/StartPage";
-import { GradePage } from "../components/GradePage";
+import { teamColors } from "../constants";
 import { useState } from "react";
 import { Teams } from "../../../types";
+import { ChooseHouse } from "../components/ChooseHouse";
+import { PageManager } from "../components/PageManager";
 
 const Index = () => {
-    const { socket, questionGroupIndex, questionIndex, questions, teams, page } = useSockets();
+    const { socket, questionGroupIndex, questionIndex, questions, teams } = useSockets();
     const [house, setHouse] = useState<keyof Teams | null>(null);
     if (questions.length === 0) return <Spinner />;
 
+    // If haven't chosen house
+    if (house === null) return <ChooseHouse setHouse={setHouse} />;
+
     const questionGroup = questions[questionGroupIndex];
     const currentQuestion = questionGroup.questions[questionIndex];
-
-    // If haven't chosen house
-    if (house === null) {
-        return (
-            <>
-                <Heading>Which House Are You?</Heading>
-                <Button colorScheme="red" onClick={() => setHouse("graham")}>
-                    Graham
-                </Button>
-                <Button colorScheme="yellow" onClick={() => setHouse("wesley")}>
-                    Wesley
-                </Button>
-                <Button colorScheme="blue" onClick={() => setHouse("booth")}>
-                    Booth
-                </Button>
-                <Button colorScheme="green" onClick={() => setHouse("elliot")}>
-                    Elliot
-                </Button>
-            </>
-        );
-    }
-
     const team = teams[house];
 
-    switch (page) {
-        case Page.START:
-            return <StartPage />;
-        case Page.GRADE:
-            return <GradePage grade={questionGroup.grade} />;
-    }
-
     return (
-        <>
+        <PageManager grade={questionGroup.grade} teams={teams}>
             <Flex w="100%" bg={teamColors[house]} p="6" justifyContent="space-between">
                 <Text fontWeight="medium">Grade {questionGroup.grade}</Text>
                 <Text textTransform="capitalize" fontWeight="medium">
@@ -99,7 +73,7 @@ const Index = () => {
                     </Stack>
                 )}
             </Flex>
-        </>
+        </PageManager>
     );
 };
 
