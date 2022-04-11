@@ -131,6 +131,15 @@ io.on("connection", socket => {
             page = new_page;
             io.sockets.emit("page", page);
         });
+
+        socket.on("admin_change_score", (house: keyof Teams, newScore: number) => {
+            teams[house].score = newScore;
+            io.sockets.emit("teams", teams);
+            fs.appendFileSync(
+                "./scores.txt",
+                `${new Date().toString()} ${house}: ${teams[house].score} manual change\n`
+            );
+        });
     });
 });
 

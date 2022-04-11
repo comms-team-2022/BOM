@@ -16,7 +16,6 @@ export const Chart: React.FC<ChartProps> = ({ teams }) => {
         houseCap: team.house[0].toUpperCase() + team.house.slice(1),
     }));
 
-    // TODO: maybe use ResponsiveContainer
     return (
         <BarChart width={1000} height={600} data={fData}>
             <Bar dataKey="score" label={{ position: "top" }}>

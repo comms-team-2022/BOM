@@ -129,6 +129,19 @@ const Admin = () => {
                                     </Button>
                                 </>
                             )}
+                            <Button
+                                colorScheme="orange"
+                                onClick={() => {
+                                    const newScore = Number(
+                                        prompt(`ONLY CHANGE IF NECESSARY. New score for ${house}:`)
+                                    );
+                                    if (Number.isSafeInteger(newScore)) {
+                                        socket.emit("admin_change_score", house, newScore);
+                                    }
+                                }}
+                            >
+                                Change Score
+                            </Button>
                         </Box>
                     );
                 })}
