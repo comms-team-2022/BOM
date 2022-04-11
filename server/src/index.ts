@@ -1,6 +1,7 @@
 import { createServer } from "http";
 import { Server } from "socket.io";
 import config from "config";
+import fs from "fs";
 import { TeamCorrect, Teams } from "../../types";
 import questions from "./questions.json";
 
@@ -70,23 +71,25 @@ io.on("connection", socket => {
 
         socket.on("admin_finish_question", (teamCorrect: TeamCorrect) => {
             const currentQuestion = questions[questionGroupIndex].questions[questionIndex];
-            for (const house in teams) {
+            for (const h in teams) {
                 let correct: boolean;
+                const house = h as keyof Teams; // appeasing typescript
 
                 if (currentQuestion.isMultiChoice) {
-                    correct =
-                        teams[house as keyof Teams].chosenAnswer === currentQuestion.correctIndex;
+                    correct = teams[house].chosenAnswer === currentQuestion.correctIndex;
                 } else {
-                    correct = teamCorrect[house as keyof Teams]!;
+                    correct = teamCorrect[house]!;
                 }
 
                 if (correct) {
-                    teams[house as keyof Teams].score += 1;
-                    teams[house as keyof Teams].isCorrect = true;
+                    teams[house].score += 1;
+                    teams[house].isCorrect = true;
                     console.log(
-                        `${house} was correct and their score is now ${
-                            teams[house as keyof Teams].score
-                        }`
+                        `${house} was correct and their score is now ${teams[house].score}`
+                    );
+                    fs.appendFileSync(
+                        "./scores.txt",
+                        `${new Date().toString()} ${house}: ${teams[house].score}\n`
                     );
                 } else {
                     teams[house as keyof Teams].isCorrect = false;
