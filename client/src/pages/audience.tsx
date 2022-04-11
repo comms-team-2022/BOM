@@ -37,7 +37,7 @@ const Audience = () => {
                         <CloseIcon boxSize="20em" bg="red" p="3em" borderRadius="10em" />
                     )
                 ) : (
-                    <Stack textAlign="center" alignItems="center" spacing="5">
+                    <Stack textAlign="center" alignItems="center" spacing="5" p="5em">
                         <Heading fontSize="7xl">
                             <Latex>{currentQuestion.question}</Latex>
                         </Heading>

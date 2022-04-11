@@ -12,7 +12,7 @@ You start the server in a production environment with `NODE_ENV=production npm r
 -   [ ] Win page
 -   [x] Graph of points
 -   [ ] Create build script for server
--   [ ] Make index pages have same slides as projector
+-   [x] Make index pages have same slides as projector
 -   [ ] Prevent against hacking / mistakes (accidentally closing the tab, etc)
--   [ ] Another page to put in front of each laptop that shows whether they got it right or wrong
+-   [x] Another page to put in front of each laptop that shows whether they got it right or wrong
 -   [ ] Timer
