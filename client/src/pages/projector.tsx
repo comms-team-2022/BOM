@@ -3,11 +3,12 @@ import Latex from "react-latex-next";
 import { PieChart, Pie, Cell } from "recharts";
 import { TeamInfo } from "../../../types";
 import { PageManager } from "../components/PageManager";
+import { Timer } from "../components/Timer";
 import { teamColors } from "../constants";
 import { useSockets } from "../socket.context";
 
 const Projector = () => {
-    const { questionGroupIndex, questionIndex, questions, teams } = useSockets();
+    const { questionGroupIndex, questionIndex, questions, teams, time } = useSockets();
     if (questions.length === 0) return <Spinner />;
 
     const questionGroup = questions[questionGroupIndex];
@@ -53,26 +54,29 @@ const Projector = () => {
                             </Box>
                         )
                     ) : (
-                        <PieChart width={250} height={250}>
-                            <Pie
-                                data={allTeams.map(team => ({
-                                    name: team.house,
-                                    value: Number(team.chosenAnswer !== undefined),
-                                }))}
-                                innerRadius={80}
-                                outerRadius={120}
-                                fill="#8884d8"
-                                paddingAngle={4}
-                                dataKey="value"
-                            >
-                                {allTeams.map(team => (
-                                    <Cell
-                                        key={`cell-${team.house}`}
-                                        fill={teamColors[team.house]}
-                                    ></Cell>
-                                ))}
-                            </Pie>
-                        </PieChart>
+                        <Flex alignItems="center" justifyContent="space-evenly" w="100%">
+                            <PieChart width={250} height={250}>
+                                <Pie
+                                    data={allTeams.map(team => ({
+                                        name: team.house,
+                                        value: Number(team.chosenAnswer !== undefined),
+                                    }))}
+                                    innerRadius={80}
+                                    outerRadius={120}
+                                    fill="#8884d8"
+                                    paddingAngle={4}
+                                    dataKey="value"
+                                >
+                                    {allTeams.map(team => (
+                                        <Cell
+                                            key={`cell-${team.house}`}
+                                            fill={teamColors[team.house]}
+                                        ></Cell>
+                                    ))}
+                                </Pie>
+                            </PieChart>
+                            <Timer time={time} size={11} fontSize={6} />
+                        </Flex>
                     )}
                 </VStack>
 

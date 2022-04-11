@@ -10,7 +10,8 @@
             {
                 "question": "When 2 dice are rolled, what is the most likley sum of their values?",
                 "isMultiChoice": false,
-                "answer": "7"
+                "answer": "7",
+                "time": 30
             },
             {
                 "question": "What is an adverb?",

@@ -8,9 +8,10 @@ import { useState } from "react";
 import { Teams } from "../../../types";
 import { ChooseHouse } from "../components/ChooseHouse";
 import { PageManager } from "../components/PageManager";
+import { Timer } from "../components/Timer";
 
 const Index = () => {
-    const { socket, questionGroupIndex, questionIndex, questions, teams } = useSockets();
+    const { socket, questionGroupIndex, questionIndex, questions, teams, time } = useSockets();
     const [house, setHouse] = useState<keyof Teams | null>(null);
     if (questions.length === 0) return <Spinner />;
 
@@ -41,35 +42,41 @@ const Index = () => {
                         <Heading>
                             <Latex>{currentQuestion.question}</Latex>
                         </Heading>
-                        {currentQuestion.isMultiChoice ? (
-                            <Stack direction="row">
-                                {currentQuestion.answers.map((answer, i) => (
-                                    <Button
-                                        key={i}
-                                        onClick={() => socket.emit("answer", i, house)}
-                                        colorScheme={team.chosenAnswer === i ? "yellow" : undefined}
-                                        fontSize="2em"
-                                        p="1.3em"
-                                    >
-                                        <Latex>{answer}</Latex>
-                                    </Button>
-                                ))}
-                            </Stack>
-                        ) : (
-                            <>
-                                <TextInput
-                                    submitFunction={answer => socket.emit("answer", answer, house)}
-                                />
-                                {team.chosenAnswer && (
-                                    <Text display="flex">
-                                        Submitted answer:{" "}
-                                        <Text ml="1" color="yellow.300">
-                                            {team.chosenAnswer}
+                        {time !== 0 &&
+                            (currentQuestion.isMultiChoice ? (
+                                <Stack direction="row">
+                                    {currentQuestion.answers.map((answer, i) => (
+                                        <Button
+                                            key={i}
+                                            onClick={() => socket.emit("answer", i, house)}
+                                            colorScheme={
+                                                team.chosenAnswer === i ? "yellow" : undefined
+                                            }
+                                            fontSize="2em"
+                                            p="1.3em"
+                                        >
+                                            <Latex>{answer}</Latex>
+                                        </Button>
+                                    ))}
+                                </Stack>
+                            ) : (
+                                <>
+                                    <TextInput
+                                        submitFunction={answer =>
+                                            socket.emit("answer", answer, house)
+                                        }
+                                    />
+                                    {team.chosenAnswer && (
+                                        <Text display="flex">
+                                            Submitted answer:{" "}
+                                            <Text ml="1" color="yellow.300">
+                                                {team.chosenAnswer}
+                                            </Text>
                                         </Text>
-                                    </Text>
-                                )}
-                            </>
-                        )}
+                                    )}
+                                </>
+                            ))}
+                        <Timer time={time} size={7} fontSize={4} />
                     </Stack>
                 )}
             </Flex>

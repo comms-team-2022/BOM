@@ -1,6 +1,7 @@
 interface QuestionBase {
     question: string;
     isMultiChoice: boolean;
+    time?: number; // in seconds
 }
 
 interface MultiQuestion extends QuestionBase {

@@ -20,6 +20,8 @@ const enum Page {
     END,
 }
 
+const PASSWORD = process.env.PASSWORD ?? "joe";
+
 // Default grade
 let questionGroupIndex = 0;
 // Default question in grade
@@ -32,6 +34,15 @@ const teams: Teams = {
     booth: { score: 0, house: "booth" },
 };
 let page = Page.START;
+let time: number | null = null;
+
+function decreaseTime() {
+    io.sockets.emit("update_time", time);
+    if (time !== null && time !== 0) {
+        time--;
+        setTimeout(decreaseTime, 1000);
+    }
+}
 
 // Called when first connects
 io.on("connection", socket => {
@@ -43,6 +54,7 @@ io.on("connection", socket => {
     // Send over team information
     socket.emit("teams", teams);
     socket.emit("page", page);
+    socket.emit("update_time", time);
 
     socket.on("answer", (answer: number | string, house: keyof Teams) => {
         teams[house].chosenAnswer = answer;
@@ -51,8 +63,7 @@ io.on("connection", socket => {
     });
 
     socket.on("admin_login", password => {
-        // TODO: Change password to be more secure
-        if (password !== "joe") return;
+        if (password !== PASSWORD) return;
 
         console.log(`${socket.id} logged in as admin`);
         socket.emit("admin_login_success");
@@ -83,6 +94,8 @@ io.on("connection", socket => {
                 }
             }
 
+            time = null;
+            io.sockets.emit("update_time", time);
             io.sockets.emit("teams", teams);
         });
 
@@ -103,6 +116,12 @@ io.on("connection", socket => {
             io.sockets.emit("question_index", questionIndex);
             io.sockets.emit("question_group_index", questionGroupIndex);
             io.sockets.emit("teams", teams);
+
+            const question_time = questions[questionGroupIndex].questions[questionIndex].time;
+            if (question_time) {
+                time = question_time;
+                decreaseTime();
+            }
         });
 
         socket.on("admin_change_page", (new_page: Page) => {

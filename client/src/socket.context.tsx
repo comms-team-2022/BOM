@@ -16,6 +16,7 @@ interface SocketContext {
     questionIndex: number;
     teams: Teams;
     page: Page;
+    time: number | null;
 }
 
 const DEFAULT_TEAM_INFO: Teams = {
@@ -34,6 +35,7 @@ const SocketContext = createContext<SocketContext>({
     questionIndex: 0,
     teams: DEFAULT_TEAM_INFO,
     page: Page.START,
+    time: null,
 });
 
 const SocketsProvider: React.FC = props => {
@@ -52,9 +54,12 @@ const SocketsProvider: React.FC = props => {
     const [page, setPage] = useState(Page.START);
     socket.on("page", value => setPage(value));
 
+    const [time, setTime] = useState<number | null>(null);
+    socket.on("update_time", value => setTime(value));
+
     return (
         <SocketContext.Provider
-            value={{ socket, questions, questionGroupIndex, questionIndex, teams, page }}
+            value={{ socket, questions, questionGroupIndex, questionIndex, teams, page, time }}
             {...props}
         />
     );
