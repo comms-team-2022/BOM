@@ -1,14 +1,14 @@
-import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import { Button, Spinner, Heading, Text, Flex, Stack } from "@chakra-ui/react";
 import Latex from "react-latex-next";
 import { TextInput } from "../components/TextInput";
 import { useSockets } from "../socket.context";
-import { teamColors } from "../constants";
 import { useState } from "react";
 import { Teams } from "../../../types";
 import { ChooseHouse } from "../components/ChooseHouse";
 import { PageManager } from "../components/PageManager";
 import { Timer } from "../components/Timer";
+import { TeamHeader } from "../components/TeamHeader";
+import { CorrectIcon } from "../components/CorrectIcon";
 
 const Index = () => {
     const { socket, questionGroupIndex, questionIndex, questions, teams, time } = useSockets();
@@ -24,19 +24,10 @@ const Index = () => {
 
     return (
         <PageManager grade={questionGroup.grade} teams={teams}>
-            <Flex w="100%" bg={teamColors[house]} p="6" justifyContent="space-between">
-                <Text fontWeight="medium">Grade {questionGroup.grade}</Text>
-                <Text textTransform="capitalize" fontWeight="medium">
-                    {house}
-                </Text>
-            </Flex>
+            <TeamHeader grade={questionGroup.grade} house={house} />
             <Flex h="91vh" justifyContent="center" alignItems="center">
                 {team.isCorrect !== undefined ? (
-                    team.isCorrect ? (
-                        <CheckIcon boxSize="20em" bg="green" p="3em" borderRadius="10em" />
-                    ) : (
-                        <CloseIcon boxSize="20em" bg="red" p="3em" borderRadius="10em" />
-                    )
+                    <CorrectIcon isCorrect={team.isCorrect} />
                 ) : (
                     <Stack textAlign="center" alignItems="center" spacing="5">
                         <Heading>

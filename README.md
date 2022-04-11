@@ -10,7 +10,7 @@ To set a custom password for the server do `PASSWORD=yourpassword npm run dev`
 
 ## Todo:
 
--   [ ] Make design nice
+-   [x] Make design nice
 -   [x] Projector screen page
     -   [x] Show question and correct answer(s) on result projector page
 -   [ ] Win page (actually we probably won't have one)

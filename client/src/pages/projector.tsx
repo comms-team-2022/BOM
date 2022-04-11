@@ -87,7 +87,7 @@ const Projector = () => {
                         left="0"
                         w="100%"
                         h="4em"
-                        bg="red"
+                        bg="red.400"
                         clipPath="polygon(4% 100%, 96% 100%, 100% 0, 0 0)"
                     />
                 )}
@@ -98,7 +98,7 @@ const Projector = () => {
                         right="0"
                         w="4.8em"
                         h="100%"
-                        bg="blue"
+                        bg="blue.400"
                         clipPath="polygon(0 93.7%, 100% 100%, 100% 0, 0 6.3%)"
                     />
                 )}
@@ -109,7 +109,7 @@ const Projector = () => {
                         right="0"
                         w="100%"
                         h="4em"
-                        bg="green"
+                        bg="green.400"
                         clipPath="polygon(0 100%, 100% 100%, 96% 0, 4% 0)"
                     />
                 )}
@@ -120,7 +120,7 @@ const Projector = () => {
                         left="0"
                         w="4.8em"
                         h="100%"
-                        bg="yellow"
+                        bg="yellow.400"
                         clipPath="polygon(0 100%, 100% 93.7%, 100% 6.3%, 0 0)"
                     />
                 )}
