@@ -1,5 +1,6 @@
 // Change to the real values
 export default {
-    corsOrigin: "http://192.168.0.2:3000",
-    host: "192.168.0.2",
+    corsOrigin: "https://bom2022.vercel.app",
+    host: "194.195.125.58",
+    port: 3000,
 };

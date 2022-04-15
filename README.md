@@ -22,3 +22,4 @@ To set a custom password for the server do `PASSWORD=yourpassword npm run dev`
 -   [x] Timer
 -   [x] Log file of scores in case it crashes
 -   [x] Manual changing of scores
+-   [ ] Check it looks good on the actual laptops and projector.
