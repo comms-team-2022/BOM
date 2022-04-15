@@ -1,3 +1,5 @@
+// TODO: https stuff https://nodejs.org/en/knowledge/HTTP/servers/how-to-create-a-HTTPS-server/
+// Did on VM already just put it here
 import { createServer } from "http";
 import { Server } from "socket.io";
 import config from "config";
