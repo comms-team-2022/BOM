@@ -1,5 +1,3 @@
-// TODO: https stuff https://nodejs.org/en/knowledge/HTTP/servers/how-to-create-a-HTTPS-server/
-// Did on VM already just put it here
 import { createServer } from "http";
 import { Server } from "socket.io";
 import config from "config";
@@ -118,9 +116,10 @@ io.on("connection", socket => {
                 teams[house as keyof Teams].chosenAnswer = undefined;
             }
 
+            // TODO: Perhaps combine these into a single thing (might stop flickering)
+            io.sockets.emit("teams", teams);
             io.sockets.emit("question_index", questionIndex);
             io.sockets.emit("question_group_index", questionGroupIndex);
-            io.sockets.emit("teams", teams);
 
             const question_time = questions[questionGroupIndex].questions[questionIndex].time;
             if (question_time) {

@@ -28,6 +28,11 @@
                 "question": "Who plays Elsa in Frozen?",
                 "isMultiChoice": false,
                 "answer": "Idina Menzel"
+            },
+            {
+                "question": "Guess the Song",
+                "isMultiChoice": false,
+                "answer": "The Office Theme Song"
             }
         ]
     },
@@ -60,6 +65,11 @@
                 "question": "What is the only US state that begins with the letter P?",
                 "isMultiChoice": false,
                 "answer": "Pennsylvania"
+            },
+            {
+                "question": "Guess the Song",
+                "isMultiChoice": false,
+                "answer": "My Heart Will Go On"
             }
         ]
     },
@@ -97,6 +107,11 @@
                 "question": "Who wrote the song \"Can't have you\"?",
                 "isMultiChoice": false,
                 "answer": "Shawn Mendes"
+            },
+            {
+                "question": "Guess the Song",
+                "isMultiChoice": false,
+                "answer": "Everybody Wants To Rule The World"
             }
         ]
     },
@@ -134,6 +149,11 @@
                 "question": "What is a group of crows called?",
                 "isMultiChoice": false,
                 "answer": "A murder"
+            },
+            {
+                "question": "Guess the Song",
+                "isMultiChoice": false,
+                "answer": "Walk This Way"
             }
         ]
     },
@@ -164,12 +184,28 @@
                 "question": "In what country was the first electric car ever built?",
                 "isMultiChoice": false,
                 "answer": "Germany"
+            },
+            {
+                "question": "Guess the Song",
+                "isMultiChoice": false,
+                "answer": "Come As You Are"
             }
         ]
     },
     {
         "grade": 12,
         "questions": [
+            {
+                "question": "Given the reaction $aA+bB\\rightleftharpoons cC+dD$, what is the equation for the equilibrium constant?",
+                "isMultiChoice": true,
+                "answers": [
+                    "$K_{c} =\\frac{[ C]^{c}[ D]^{d}}{[ A]^{a}[ B]^{b}}$",
+                    "$K_{c} =\\frac{c[ C] d[ D]}{a[ A] b[ B]}$",
+                    "$K_{c} =\\frac{cd[ A][ B]}{ab[ C][ D]}$",
+                    "$K_{c} =\\frac{[ A]^{a}[ B]^{b}}{[ C]^{c}[ D]^{d}}$"
+                ],
+                "correctIndex": 0
+            },
             {
                 "question": "Differentiate the following function: $5e^{2x} +\\ln\\left( x^{2}\\right)$",
                 "isMultiChoice": true,
@@ -196,6 +232,11 @@
                 "question": "What is the radius of pluto? (The 2 closest teams will win)",
                 "isMultiChoice": false,
                 "answer": "1188km"
+            },
+            {
+                "question": "Guess the Song",
+                "isMultiChoice": false,
+                "answer": "Play That Funky Music"
             }
         ]
     }
