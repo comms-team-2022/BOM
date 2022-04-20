@@ -1,9 +1,10 @@
-import { Button, Flex, Heading, Spinner, Stack } from "@chakra-ui/react";
+import { Flex, Heading, Spinner, Stack } from "@chakra-ui/react";
 import { useState } from "react";
 import Latex from "react-latex-next";
 import { Teams } from "../../../types";
 import { ChooseHouse } from "../components/ChooseHouse";
 import { CorrectIcon } from "../components/CorrectIcon";
+import { MultiChoice } from "../components/MultiChoice";
 import { PageManager } from "../components/PageManager";
 import { TeamHeader } from "../components/TeamHeader";
 import { useSockets } from "../socket.context";
@@ -32,15 +33,7 @@ const Audience = () => {
                         <Heading fontSize="7xl">
                             <Latex>{currentQuestion.question}</Latex>
                         </Heading>
-                        {currentQuestion.isMultiChoice && (
-                            <Stack direction="row">
-                                {currentQuestion.answers.map((answer, i) => (
-                                    <Button key={i} fontSize="2em" p="1.3em">
-                                        <Latex>{answer}</Latex>
-                                    </Button>
-                                ))}
-                            </Stack>
-                        )}
+                        <MultiChoice question={currentQuestion} fontSize="4xl" />
                     </Stack>
                 )}
             </Flex>

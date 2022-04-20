@@ -1,7 +1,8 @@
-import { Button, Heading, Spinner, Flex, Box, Text, VStack } from "@chakra-ui/react";
+import { Heading, Spinner, Flex, Box, Text, VStack } from "@chakra-ui/react";
 import Latex from "react-latex-next";
 import { PieChart, Pie, Cell } from "recharts";
 import { TeamInfo } from "../../../types";
+import { MultiChoice } from "../components/MultiChoice";
 import { PageManager } from "../components/PageManager";
 import { Timer } from "../components/Timer";
 import { teamColors } from "../constants";
@@ -18,33 +19,21 @@ const Projector = () => {
 
     return (
         <PageManager grade={questionGroup.grade} teams={teams}>
-            <Box px="4.2em" h="100vh">
+            <Flex px="4.2em" h="100vh" flexFlow="column">
                 <Text textAlign="center" fontSize="3xl">
                     Grade {questionGroup.grade}
                 </Text>
 
-                <VStack justify="center" h="94%" spacing="6em">
+                <VStack justify="center" spacing="3em" flexGrow={1}>
                     <Heading fontSize="7xl" textAlign="center">
                         <Latex>{currentQuestion.question}</Latex>
                     </Heading>
-                    {currentQuestion.isMultiChoice && (
-                        <Flex w="100%" justifyContent="space-evenly">
-                            {currentQuestion.answers.map((answer, i) => (
-                                <Button
-                                    key={i}
-                                    fontSize="4xl"
-                                    p="2em"
-                                    colorScheme={
-                                        questionFinished && i === currentQuestion.correctIndex
-                                            ? "green"
-                                            : undefined
-                                    }
-                                >
-                                    <Latex>{answer}</Latex>
-                                </Button>
-                            ))}
-                        </Flex>
-                    )}
+                    <MultiChoice
+                        color="green"
+                        colorCondition={(q, i) => questionFinished && i === q.correctIndex}
+                        question={currentQuestion}
+                        fontSize="4xl"
+                    />
                     {questionFinished ? (
                         !currentQuestion.isMultiChoice && (
                             <Box textAlign="center">
@@ -124,7 +113,7 @@ const Projector = () => {
                         clipPath="polygon(0 100%, 100% 93.7%, 100% 6.3%, 0 0)"
                     />
                 )}
-            </Box>
+            </Flex>
         </PageManager>
     );
 };

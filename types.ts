@@ -4,7 +4,7 @@ interface QuestionBase {
     time?: number; // in seconds
 }
 
-interface MultiQuestion extends QuestionBase {
+export interface MultiQuestion extends QuestionBase {
     isMultiChoice: true;
     answers: string[];
     correctIndex: number;
@@ -15,7 +15,7 @@ interface OpenQuestion extends QuestionBase {
     answer: string;
 }
 
-type Question = MultiQuestion | OpenQuestion;
+export type Question = MultiQuestion | OpenQuestion;
 
 export interface QuestionGroup {
     grade: number;
