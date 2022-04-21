@@ -57,6 +57,12 @@ const SocketsProvider: React.FC = props => {
     const [time, setTime] = useState<number | null>(null);
     socket.on("update_time", value => setTime(value));
 
+    socket.on("next_question", (teams, questionIndex, questionGroupIndex) => {
+        setTeams(teams);
+        setQuestionIndex(questionIndex);
+        setQuestionGroupIndex(questionGroupIndex);
+    });
+
     return (
         <SocketContext.Provider
             value={{ socket, questions, questionGroupIndex, questionIndex, teams, page, time }}

@@ -116,10 +116,7 @@ io.on("connection", socket => {
                 teams[house as keyof Teams].chosenAnswer = undefined;
             }
 
-            // TODO: Perhaps combine these into a single thing (might stop flickering)
-            io.sockets.emit("teams", teams);
-            io.sockets.emit("question_index", questionIndex);
-            io.sockets.emit("question_group_index", questionGroupIndex);
+            io.sockets.emit("next_question", teams, questionIndex, questionGroupIndex);
 
             const question_time = questions[questionGroupIndex].questions[questionIndex].time;
             if (question_time) {
