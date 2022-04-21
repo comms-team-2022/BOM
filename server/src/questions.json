@@ -3,31 +3,34 @@
         "grade": 7,
         "questions": [
             {
-                "question": "What is the second planet from the sun?",
-                "isMultiChoice": false,
-                "answer": "Venus"
-            },
-            {
                 "question": "When 2 dice are rolled, what is the most likley sum of their values?",
                 "isMultiChoice": false,
-                "answer": "7",
+                "answer": "7"
+            },
+            {
+                "question": "What is the second planet from the sun?",
+                "isMultiChoice": false,
+                "answer": "Venus",
                 "time": 30
             },
             {
                 "question": "What is an adverb?",
                 "isMultiChoice": false,
-                "answer": "A word or phrase that modifies or qualifies an adjective, verb, or other adverb or a word group, expressing a relation of something."
+                "answer": "A word or phrase that modifies or qualifies an adjective, verb, or other adverb or a word group, expressing a relation of something.",
+                "time": 30
             },
             {
-                "question": "Who were the Perisans led by in the Second Persian invasion of Greece? ",
+                "question": "Who was the king who imprisoned Daniel in the lion's den?",
                 "isMultiChoice": true,
-                "answers": ["Cyrus the Great", "Artaxerxes II", "Darius II", "Xerxes I"],
-                "correctIndex": 3
+                "answers": ["Alexander the Great", "Xerxes", "Darius", "Nebuchadnezzar"],
+                "correctIndex": 2,
+                "time": 30
             },
             {
                 "question": "Who plays Elsa in Frozen?",
                 "isMultiChoice": false,
-                "answer": "Idina Menzel"
+                "answer": "Idina Menzel",
+                "time": 30
             },
             {
                 "question": "Guess the Song",
@@ -48,39 +51,43 @@
                 "question": "Simplify $\\frac{\\left( 4x^{3}\\right)^{2}}{x^{2}}$",
                 "isMultiChoice": true,
                 "answers": ["$4x^{3}$", "$\\frac{16x^{6}}{x^{2}}$", "$16x^{3}$", "$16x^{4}$"],
-                "correctIndex": 3
+                "correctIndex": 3,
+                "time": 30
             },
             {
-                "question": "In the book 'Holes', what is the warden's secret ingredient in her nail polish?",
+                "question": "Towards the end of Second Hand Lions, who is the man in the helicopter related to?",
                 "isMultiChoice": false,
-                "answer": "Rattlesnake Venom"
+                "answer": "The Sheik",
+                "time": 30
             },
             {
-                "question": "How many British Monarchs were named George? (How many King George's)?",
+                "question": "Who defeated the Saxons at the Battle of Hastings?",
                 "isMultiChoice": true,
-                "answers": ["6", "10", "2", "4"],
-                "correctIndex": 0
+                "answers": [
+                    "Harold Godwinson",
+                    "William the Conqueror",
+                    "Edward the Confessor",
+                    "Charles the Bald"
+                ],
+                "correctIndex": 1,
+                "time": 30
             },
             {
                 "question": "What is the only US state that begins with the letter P?",
                 "isMultiChoice": false,
-                "answer": "Pennsylvania"
+                "answer": "Pennsylvania",
+                "time": 30
             },
             {
                 "question": "Guess the Song",
                 "isMultiChoice": false,
-                "answer": "My Heart Will Go On"
+                "answer": "Celine Dion - My Heart Will Go On"
             }
         ]
     },
     {
         "grade": 9,
         "questions": [
-            {
-                "question": "What are divergent boundaries?",
-                "isMultiChoice": false,
-                "answer": "Tectonic plates that are moving away from each other"
-            },
             {
                 "question": "Expand $(2x+3y)^{2}$",
                 "isMultiChoice": true,
@@ -93,25 +100,36 @@
                 "correctIndex": 3
             },
             {
+                "question": "What are diverging boundaries?",
+                "isMultiChoice": false,
+                "answer": "Where tectonic plates are moving apart from each other in opposite directions",
+                "time": 30
+            },
+
+            {
                 "question": "Who wrote Chinese Cinderella?",
                 "isMultiChoice": false,
-                "answer": "Adeline Yen Mah"
+                "answer": "Adeline Yen Mah",
+                "time": 30
             },
             {
                 "question": "When was the Industrial Revolution?",
                 "isMultiChoice": true,
                 "answers": ["1450 - 1780", "1760 - 1840", "1830 - 1910", "1939 - 1945"],
-                "correctIndex": 1
+                "correctIndex": 1,
+                "time": 30
             },
             {
-                "question": "Who wrote the song \"Can't have you\"?",
-                "isMultiChoice": false,
-                "answer": "Shawn Mendes"
+                "question": "How many British Monarchs were named George? (How many King George's)?",
+                "isMultiChoice": true,
+                "answers": ["6", "10", "2", "4"],
+                "correctIndex": 0,
+                "time": 30
             },
             {
                 "question": "Guess the Song",
                 "isMultiChoice": false,
-                "answer": "Everybody Wants To Rule The World"
+                "answer": "Tears for Fears - Everybody Wants To Rule The World"
             }
         ]
     },
@@ -124,9 +142,10 @@
                 "answer": "Hydrogen, Helium, Lithium, Beryllium, Boron"
             },
             {
-                "question": "Solve $2\\cos( 60\\degree ) -1$",
+                "question": "Calculate the distance between the points (-3, 4) and (5, 10)",
                 "isMultiChoice": false,
-                "answer": "0"
+                "answer": "10",
+                "time": 60
             },
             {
                 "question": "Which of these sentences uses semicolons correctly?",
@@ -137,23 +156,26 @@
                     "The conference has people who have come from Moscow, Idaho; Springfield, California, Alamo, Tennessee, and other places as well.",
                     "According to my calculations; it should definitely work."
                 ],
-                "correctIndex": 1
+                "correctIndex": 1,
+                "time": 30
             },
             {
-                "question": "Which European country held out against attacks from the USSR during World War 2?",
+                "question": "Who was the first king of Rome?",
                 "isMultiChoice": true,
-                "answers": ["Poland", "Romania", "Finland", "Norway"],
-                "correctIndex": 2
+                "answers": ["Romulus", "Alexander the Great", "Constantine", "Augustus"],
+                "correctIndex": 0,
+                "time": 30
             },
             {
                 "question": "What is a group of crows called?",
                 "isMultiChoice": false,
-                "answer": "A murder"
+                "answer": "A murder",
+                "time": 30
             },
             {
                 "question": "Guess the Song",
                 "isMultiChoice": false,
-                "answer": "Walk This Way"
+                "answer": "Run DMC - Walk This Way"
             }
         ]
     },
@@ -168,27 +190,31 @@
             {
                 "question": "What is the turning point of $y=( 2x-5)^{2} +3$",
                 "isMultiChoice": false,
-                "answer": "(2.5, 3)"
+                "answer": "(2.5, 3)",
+                "time": 30
             },
             {
                 "question": "What nationality is Gibson from the Dunkirk movie?",
                 "isMultiChoice": false,
-                "answer": "French"
+                "answer": "French",
+                "time": 30
             },
             {
-                "question": "Who did Cleopatra VII marry?",
+                "question": "Which famous Jacobin leader led the Reign of Terror during the French Revolution?",
                 "isMultiChoice": false,
-                "answer": "Julius Caesar and Mark Antony"
+                "answer": "Maximilien Robespierre",
+                "time": 30
             },
             {
                 "question": "In what country was the first electric car ever built?",
                 "isMultiChoice": false,
-                "answer": "Germany"
+                "answer": "Germany",
+                "time": 30
             },
             {
                 "question": "Guess the Song",
                 "isMultiChoice": false,
-                "answer": "Come As You Are"
+                "answer": "Nirvana - Come As You Are"
             }
         ]
     },
@@ -215,28 +241,32 @@
                     "$10e^{2x} +\\frac{2}{x}$",
                     "$\\frac{5}{2} e^{2x} +2x\\ln( x)$"
                 ],
-                "correctIndex": 2
+                "correctIndex": 2,
+                "time": 30
             },
             {
                 "question": "Over what part of Long Island do the eyes of Dr. T.J. Eckleberg watch over?",
                 "isMultiChoice": false,
-                "answer": "The Valley of Ashes"
+                "answer": "The Valley of Ashes",
+                "time": 30
             },
             {
                 "question": "In what year did Adolf Hitler become Chancellor of Germany?",
                 "isMultiChoice": true,
                 "answers": ["1939", "1933", "1945", "1935"],
-                "correctIndex": 1
+                "correctIndex": 1,
+                "time": 30
             },
             {
                 "question": "What is the radius of pluto? (The 2 closest teams will win)",
                 "isMultiChoice": false,
-                "answer": "1188km"
+                "answer": "1188km",
+                "time": 30
             },
             {
                 "question": "Guess the Song",
                 "isMultiChoice": false,
-                "answer": "Play That Funky Music"
+                "answer": "Wild Cherry - Play That Funky Music"
             }
         ]
     }
